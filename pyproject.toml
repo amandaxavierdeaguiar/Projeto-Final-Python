@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Projeto-Final-Python"
+version = "0.1.0"
+dependencies = [
+    "python-dotenv==1.0.1",
+    "annotated-types==0.6.0",
+    "greenlet==3.0.3",
+    "pydantic==2.6.4",
+    "pydantic_core==2.16.3",
+    "SQLAlchemy==2.0.28",
+    "sqlmodel==0.0.16",
+    "typing_extensions==4.10.0",
+]
+requires-python = ">=3.12"
+authors = [
+  {name = "Amanda Xavier", email = "name@email.com"},
+  {name = "Fábio Rodrigues", email = "name@email.com"},
+  {name = "Jandira Pedrosa", email = "name@email.com"},
+]
+maintainers = [
+  {name = "Amanda Xavier", email = "name@email.com"},
+  {name = "Fábio Rodrigues", email = "name@email.com"},
+  {name = "Jandira Pedrosa", email = "name@email.com"},
+]
+description = ""
+readme = "README.md"
+license = {text = "MIT License"}
+# keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
+# classifiers = [
+#   "Development Status :: 4 - Beta",
+#   "Programming Language :: Python"
+# ]
+
+[project.urls]
+# Documentation = "https://readthedocs.org"
+Repository = "https://github.com/amandaxavierdeaguiar/Projeto-Final-Python"

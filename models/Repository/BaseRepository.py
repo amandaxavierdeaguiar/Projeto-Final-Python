@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, Optional
-from models.db import create_db_and_tables, engine, select
+from typing import Generic, TypeVar
+from models.db import engine, select
 from sqlmodel import Session
 
 T = TypeVar('T')
@@ -31,7 +31,6 @@ class BaseRepository(ABC, Generic[T]):
 
     @abstractmethod 
     def update(self, entity: T) -> None:
-        prefix = "old_"
         with Session(engine) as session:
             statement = select(T).where(T.id == T.id)
             exec_result = session.exec(statement)
