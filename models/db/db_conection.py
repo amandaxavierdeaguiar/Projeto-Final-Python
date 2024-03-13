@@ -5,13 +5,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # sqlite_file_name = "database.db"
-url = os.getenv('SECRET_BD')
+url = str(os.getenv('SECRET_BD'))
 sqlite_url = f"{url}"
 
-engine = create_engine(sqlite_url)
+def engine():
+    return create_engine(sqlite_url, echo=True)
 
 def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
+    SQLModel.metadata.create_all(engine())
 
 """sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"

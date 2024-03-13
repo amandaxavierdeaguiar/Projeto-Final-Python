@@ -1,5 +1,6 @@
-from models import BaseEntity
+from typing import Optional
+from sqlmodel import Field, SQLModel
 
 
-class Stocks(BaseEntity):
+class Stocks(SQLModel, table=False):
     pass

@@ -1,8 +1,10 @@
-from models import BaseEntity
+from typing import Optional
+from sqlmodel import Field, SQLModel
 
 
 
-class Supplier(BaseEntity):
+class Supplier(SQLModel, table=False):
+    id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     adress: str
     phone: str

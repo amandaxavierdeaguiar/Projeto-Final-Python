@@ -1,6 +1,6 @@
 from models.Repository.BaseRepository import BaseRepository
 from models.User import User
-from models.db import engine
+from models.db.db_conection import engine
 from sqlmodel import Session, select
 
 
