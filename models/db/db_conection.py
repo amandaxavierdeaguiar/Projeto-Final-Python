@@ -3,10 +3,10 @@ from pathlib import os
 from dotenv import load_dotenv
 
 load_dotenv()
-  
-sqlite_file_name = "database.db"
+
+# sqlite_file_name = "database.db"
 url = os.getenv('SECRET_BD')
-sqlite_url = f"sqlite:///{url}"
+sqlite_url = f"{url}"
 
 engine = create_engine(sqlite_url)
 
