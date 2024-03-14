@@ -52,3 +52,4 @@ class UserRepository(BaseRepository[User]):
 
         if result_confirm is None:  
             print("Successfully Deleted")  
+            

@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, create_engine
-from pathlib import os
+import os
 from dotenv import load_dotenv
+#import psycopg2
 
 load_dotenv()
 
