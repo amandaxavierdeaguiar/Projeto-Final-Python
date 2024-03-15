@@ -1,55 +1,53 @@
 from models.Repository.BaseRepository import BaseRepository
 from models.User import User
-from models.db.db_conection import engine
-from sqlmodel import Session, select
+from sqlmodel import select
 
 
 class UserRepository(BaseRepository[User]):
-    def __init__(self, session):
-        super().__init__(session)   
+    def __init__(self):
+        super().__init__()
 
-    def add(self, entity: User) -> None:
-        with Session(engine) as session:
-            session.add(User)
-            session.commit()
-            session.refresh(User)
-    
-    def getAll(self, entity: User):
-        with Session(engine) as session:
-            statement = select(User)
-            result = session.exec(statement).all()
-            return result
-    
-    def getById(self, entity: User) -> User:
-        with Session(engine) as session:
-            statement = select(User).where(User.id == User.id)
-            result = session.exec(statement)
-            return result
-    
-    def update(self, entity: User) -> None:
-        with Session(engine) as session:
-            statement = select(User).where(User.id == User.id)
-            exec_result = session.exec(statement)
-            result = exec_result.one()
-   
-            result = User
-            session.add(result)
-            session.commit()
-            session.refresh(result)
-    
-    def delete(self, entity: User) -> None:
-        with Session(engine) as session:
-            statement = select(User).where(User.id == User.id)
-            exec_result = session.exec(statement)  
-            result = exec_result.one()   
+    @classmethod
+    def add(cls, entity: User, session_) -> None:
+        session_.add(entity)
+        session_.commit()
+        session_.refresh(entity)
 
-            session.delete(result)  
-            session.commit()  
+    @classmethod
+    def get_all(cls, session_):
+        statement = select(User)
+        result = session_.exec(statement).all()
+        return result
 
-            statement = select(User).where(User.id == User.id)
-            exec_confirm = session.exec(statement)  
-            result_confirm = exec_confirm.first()  
+    @classmethod
+    def get_by_id(cls, entity: User, session_) -> User:
+        statement = select(entity).where(entity.id == entity.id)
+        result = session_.exec(statement)
+        return result
 
-        if result_confirm is None:  
-            print("Successfully Deleted")  
-            
+    @classmethod
+    def update(cls, entity: User, session_) -> None:
+        statement = select(entity).where(entity.id == entity.id)
+        exec_result = session_.exec(statement)
+        result = exec_result.one()
+
+        result = entity
+        session_.add(result)
+        session_.commit()
+        session_.refresh(result)
+
+    @classmethod
+    def delete(cls, entity: User, session_) -> None:
+        statement = select(entity).where(entity.id == entity.id)
+        exec_result = session_.exec(statement)
+        result = exec_result.one()
+
+        session_.delete(result)
+        session_.commit()
+
+        statement = select(entity).where(entity.id == entity.id)
+        exec_confirm = session_.exec(statement)
+        result_confirm = exec_confirm.first()
+
+        if result_confirm is None:
+            print("Successfully Deleted")

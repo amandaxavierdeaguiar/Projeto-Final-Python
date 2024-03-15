@@ -1,18 +1,21 @@
 import os
 from dotenv import load_dotenv
-from sqlmodel import SQLModel, create_engine, MetaData
+from sqlmodel import SQLModel, create_engine, Session
 
 load_dotenv()
 
 # sqlite_file_name = "database.db"
 # url = str(os.getenv('SECRET_BD'))
-url = str(os.getenv('SECRET_BD2'))
-sqlite_url = f"{url}"
+sqlite_url = str(os.getenv('SECRET_BD2'))
 
 
-def engine():
+def get_engine():
     return create_engine(sqlite_url, echo=True)
 
 
 def create_db_and_tables():
-    SQLModel.metadata.create_all(engine())
+    SQLModel.metadata.create_all(get_engine())
+
+
+def get_session():
+    return Session(get_engine())

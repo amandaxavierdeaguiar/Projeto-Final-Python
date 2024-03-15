@@ -14,8 +14,8 @@ class Movements(SQLModel, table=True):
     date: datetime
     quantity: float
     type_movement: str
-    product: Optional['Product'] = Relationship(back_populates="movements")
-    supplier: Optional['Supplier'] = Relationship(back_populates="supplier")
+    # product: Optional[Product] = Relationship(back_populates="product")
+    # supplier: Optional[Supplier] = Relationship(back_populates="supplier")
 
     """
         Penso que supplier_id é o unico que pode ser optional 

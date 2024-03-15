@@ -15,8 +15,8 @@ class Product(SQLModel, table=True):
     price: float
     supplier_id: int = Field(default=None, foreign_key="supplier.id")
     category_id: int = Field(default=None, foreign_key="category.id")
-    supplier: Optional[Supplier] = Relationship(back_populates="products")
-    category: Optional[Category] = Relationship(back_populates="products")
+    # supplier: Optional[Supplier] = Relationship(back_populates="supplier")
+    # category: Optional[Category] = Relationship(back_populates="category")
     # stocks: List['Stocks'] = Relationship(back_populates="product") #Ver como vai ficar no banco
     """
         Ligaçao ao stocks fica no stocks

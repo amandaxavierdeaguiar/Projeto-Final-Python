@@ -1,24 +1,54 @@
 from models.Repository.BaseRepository import BaseRepository
 from models.Category import Category
-from models.db.db_conection import engine
+from models.db.db_conection import get_engine
 from sqlmodel import Session, select
 
 
 class CategoryRepository(BaseRepository[Category]):
-    def __init__(self, session):
-        super().__init__(session)
+    def __init__(self):
+        super().__init__()
 
-    def add(self, entity: Category) -> None:
-        return super().add(entity)
-    
-    def getAll(self, entity: Category):
-        return super().getAll(entity)
-    
-    def getById(self, entity: Category) -> Category:
-        return super().getById(entity)
-    
-    def update(self, entity: Category) -> None:
-        return super().update(entity)
-    
-    def delete(self, entity: Category) -> None:
-        return super().delete(entity)
+    @classmethod
+    def add(cls, entity: Category, session_) -> None:
+        session_.add(entity)
+        session_.commit()
+        session_.refresh(entity)
+
+    @classmethod
+    def get_all(cls, session_):
+        statement = select(Category)
+        result = session_.exec(statement).all()
+        return result
+
+    @classmethod
+    def get_by_id(cls, entity: Category, session_) -> Category:
+        statement = select(entity).where(entity.id == entity.id)
+        result = session_.exec(statement)
+        return result
+
+    @classmethod
+    def update(cls, entity: Category, session_) -> None:
+        statement = select(entity).where(entity.id == entity.id)
+        exec_result = session_.exec(statement)
+        result = exec_result.one()
+
+        result = entity
+        session_.add(result)
+        session_.commit()
+        session_.refresh(result)
+
+    @classmethod
+    def delete(cls, entity: Category, session_) -> None:
+        statement = select(entity).where(entity.id == entity.id)
+        exec_result = session_.exec(statement)
+        result = exec_result.one()
+
+        session_.delete(result)
+        session_.commit()
+
+        statement = select(entity).where(entity.id == entity.id)
+        exec_confirm = session_.exec(statement)
+        result_confirm = exec_confirm.first()
+
+        if result_confirm is None:
+            print("Successfully Deleted")

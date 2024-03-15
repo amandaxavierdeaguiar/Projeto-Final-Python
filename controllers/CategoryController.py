@@ -1,9 +1,14 @@
 from models.Repository.CategoryRepository import CategoryRepository
 from models.Category import Category
 
-class CategoryController():
-    def add(self):
+
+class CategoryController:
+    def __init__(self):
+        pass
+
+    @classmethod
+    def add(cls, ct: Category, session):
         cnt = CategoryRepository()
-        ct = Category('Categoria')
-        cnt.add(ct)
-        #cnt.update(ct)
+        Category('Categoria')
+        cnt.add(ct, session)
+        # cnt.update(ct)
