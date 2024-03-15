@@ -5,21 +5,23 @@ from models.Product import Product
 from models.Supplier import Supplier
 
 
-class Movements(SQLModel, table=False):
+class Movements(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    product_id: Optional[int] = Field(default=None, foreign_key="product.id")
+    product_id: int = Field(default=None, foreign_key="product.id")
     supplier_id: Optional[int] = Field(default=None, foreign_key="supplier.id")
-    #bar_cod: str
+    user_id: int = Field(default=None, foreign_key="user.id")
+    # bar_cod: str
     date: datetime
     quantity: float
     type_movement: str
     product: Optional['Product'] = Relationship(back_populates="movements")
-    product: Optional['Supplier'] = Relationship(back_populates="supplier")
+    supplier: Optional['Supplier'] = Relationship(back_populates="supplier")
 
+    """
+        Penso que supplier_id é o unico que pode ser optional 
+        porque ao fazer uma alteração no stock(mudança da quantidade por ter sido vendido)
+        o movimento vem do stock e por isso nao terá supplier
 
-"""class Movements(SQLModel, table=False):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    #bar_cod: str
-    date: datetime
-    quantity: float
-    type_movement: str"""
+        adicionei user_id para ficar resistado qual user vez certo movimento
+
+    """

@@ -1,9 +1,10 @@
-from models.Enums.TypeAcess import TypeAcess
+from models.Enums.TypeAccess import TypeAccess
 from models.Repository.UserRepository import UserRepository
 from models.User import User
 
+
 class UserController():
-    def add():
+    def add(self):
         cnt = UserRepository()
-        u = User("fabio@email.com", "test1234", "fabio", TypeAcess.User)
+        u = User("fabio@email.com", "test1234", "fabio", TypeAccess.User)
         cnt.add(u)

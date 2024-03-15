@@ -1,6 +1,6 @@
-from models.Enums.TypeAcess import TypeAcess
 from typing import Optional
 from sqlmodel import Field, SQLModel
+from models.Enums.TypeAccess import TypeAccess
 
 
 class User(SQLModel, table=True):
@@ -8,4 +8,4 @@ class User(SQLModel, table=True):
     login: str
     password: str
     name: str
-    typeAcess : TypeAcess = TypeAcess.User
+    typeAccess: TypeAccess = TypeAccess.User
