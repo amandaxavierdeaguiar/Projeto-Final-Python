@@ -5,7 +5,8 @@ from sqlmodel import SQLModel, create_engine, MetaData
 load_dotenv()
 
 # sqlite_file_name = "database.db"
-url = str(os.getenv('SECRET_BD'))
+# url = str(os.getenv('SECRET_BD'))
+url = str(os.getenv('SECRET_BD2'))
 sqlite_url = f"{url}"
 
 

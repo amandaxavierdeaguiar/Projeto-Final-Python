@@ -1,7 +1,8 @@
 from typing import Optional
-from sqlmodel import Field, SQLModel, Relationship
-from typing import List
-from models.Product import Product
+from sqlmodel import Field, SQLModel
+#from sqlmodel import Field, SQLModel, Relationship
+#from typing import List
+#from models.Product import Product
 
 
 class Category(SQLModel, table=True):

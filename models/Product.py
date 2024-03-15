@@ -3,7 +3,7 @@ from sqlmodel import Field, SQLModel, Relationship
 from models.Supplier import Supplier
 from models.Category import Category
 from typing import List
-from models.Stock import Stocks
+#from models.Stock import Stocks
 
 
 class Product(SQLModel, table=True):

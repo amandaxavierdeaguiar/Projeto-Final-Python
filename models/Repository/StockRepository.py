@@ -1,7 +1,7 @@
 from models.Repository.BaseRepository import BaseRepository
 from models.Stock import Stocks
 
-class MovementsRepository(BaseRepository[Stocks]):
+class StocksRepository(BaseRepository[Stocks]):
     def __init__(self, session):
         super().__init__(session)
 

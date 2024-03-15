@@ -8,3 +8,6 @@ class UserController():
         cnt = UserRepository()
         u = User("fabio@email.com", "test1234", "fabio", TypeAccess.User)
         cnt.add(u)
+        #cnt.update(u)
+       
+    
