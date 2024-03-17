@@ -1,7 +1,7 @@
-from models.Repository.BaseRepository import BaseRepository
+from sqlmodel import select
+
 from models.Category import Category
-from models.db.db_conection import get_engine
-from sqlmodel import Session, select
+from models.Repository.BaseRepository import BaseRepository
 
 
 class CategoryRepository(BaseRepository[Category]):

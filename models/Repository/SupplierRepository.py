@@ -1,6 +1,7 @@
+from sqlmodel import select
+
 from models.Repository.BaseRepository import BaseRepository
 from models.Supplier import Supplier
-from sqlmodel import Session, select
 
 
 class SupplierRepository(BaseRepository[Supplier]):

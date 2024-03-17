@@ -1,6 +1,7 @@
-from models.Repository.BaseRepository import BaseRepository
-from models.Product import Product
 from sqlmodel import select
+
+from models.Product import Product
+from models.Repository.BaseRepository import BaseRepository
 
 
 class ProductRepository(BaseRepository[Product]):

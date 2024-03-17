@@ -1,14 +1,30 @@
+from controllers.BaseController import BaseController
 from models.Repository.SupplierRepository import SupplierRepository
 from models.Supplier import Supplier
 
 
-class SupplierController:
+class SupplierController(BaseController[Supplier]):
+    repo: SupplierRepository = SupplierRepository()
+
     def __init__(self):
+        super().__init__()
+
+    @classmethod
+    def add(cls, entity: Supplier, session_) -> None:
         pass
 
     @classmethod
-    def add(cls):
-        cnt = SupplierRepository()
-        s = Supplier('Empresa1', 'TesteEndEmpresa1', '987654', 'empresa1@empresa')
-        cnt.add(s)
-        # cnt.update(s)
+    def get_all(cls, session_):
+        pass
+
+    @classmethod
+    def get_by_id(cls, entity: Supplier, session_) -> Supplier:
+        pass
+
+    @classmethod
+    def update(cls, entity: Supplier, session_) -> None:
+        pass
+
+    @classmethod
+    def delete(cls, entity: Supplier, session_) -> None:
+        pass

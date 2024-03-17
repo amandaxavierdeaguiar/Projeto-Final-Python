@@ -1,11 +1,8 @@
-from controllers.UserController import UserController
-from controllers.SupplierController import SupplierController
-from controllers.StockController import StockController
-from controllers.ProductController import ProductController
 from controllers.CategoryController import CategoryController
-from models.db.db_conection import get_session
-from models.User import User
-from models.Enums.TypeAccess import TypeAccess
+from controllers.ProductController import ProductController
+from controllers.StockController import StockController
+from controllers.SupplierController import SupplierController
+from controllers.UserController import UserController
 
 
 def main():
@@ -23,4 +20,3 @@ def main():
 if __name__ == '__main__':
     main()
     # create_db_and_tables()
-

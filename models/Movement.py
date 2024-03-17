@@ -1,21 +1,22 @@
-from typing import Optional
-from sqlmodel import Field, SQLModel, Relationship
 from datetime import datetime
-from models.Product import Product
-from models.Supplier import Supplier
+from typing import Optional
+
+from sqlmodel import Field, SQLModel, Relationship
+
+# from models.Product import Product
+# from models.Supplier import Supplier
 
 
-class Movements(SQLModel, table=True):
+class Movement(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     product_id: int = Field(default=None, foreign_key="product.id")
     supplier_id: Optional[int] = Field(default=None, foreign_key="supplier.id")
     user_id: int = Field(default=None, foreign_key="user.id")
-    # bar_cod: str
     date: datetime
     quantity: float
     type_movement: str
-    # product: Optional[Product] = Relationship(back_populates="product")
-    # supplier: Optional[Supplier] = Relationship(back_populates="supplier")
+    # products: Optional[Product] = Relationship(back_populates="movements")
+    # suppliers: Optional[Supplier] = Relationship(back_populates="movements")
 
     """
         Penso que supplier_id é o unico que pode ser optional 

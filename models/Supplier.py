@@ -1,5 +1,8 @@
-from typing import Optional
-from sqlmodel import Field, SQLModel
+from typing import Optional, List
+
+from sqlmodel import Field, SQLModel, Relationship
+
+# from models.Movement import Movement
 
 
 class Supplier(SQLModel, table=True):
@@ -8,3 +11,4 @@ class Supplier(SQLModel, table=True):
     address: str
     phone: str
     email: str
+    # smovements: Optional[List['Movement']] = Relationship(back_populates="suppliers")

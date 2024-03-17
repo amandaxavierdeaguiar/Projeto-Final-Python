@@ -14,21 +14,22 @@ dependencies = [
     "SQLAlchemy==2.0.28",
     "sqlmodel==0.0.16",
     "typing_extensions==4.10.0",
+    "alembic==1.13.1",
 ]
 requires-python = ">=3.12"
 authors = [
-  {name = "Amanda Xavier", email = "name@email.com"},
-  {name = "Fábio Rodrigues", email = "name@email.com"},
-  {name = "Jandira Pedrosa", email = "name@email.com"},
+    { name = "Amanda Xavier", email = "name@email.com" },
+    { name = "Fábio Rodrigues", email = "name@email.com" },
+    { name = "Jandira Pedrosa", email = "name@email.com" },
 ]
 maintainers = [
-  {name = "Amanda Xavier", email = "name@email.com"},
-  {name = "Fábio Rodrigues", email = "name@email.com"},
-  {name = "Jandira Pedrosa", email = "name@email.com"},
+    { name = "Amanda Xavier", email = "name@email.com" },
+    { name = "Fábio Rodrigues", email = "name@email.com" },
+    { name = "Jandira Pedrosa", email = "name@email.com" },
 ]
 description = ""
 readme = "README.md"
-license = {text = "MIT License"}
+license = { text = "MIT License" }
 # keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
 # classifiers = [
 #   "Development Status :: 4 - Beta",

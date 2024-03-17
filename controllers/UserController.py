@@ -1,5 +1,5 @@
-from models.Repository.UserRepository import UserRepository
 from controllers.BaseController import BaseController
+from models.Repository.UserRepository import UserRepository
 from models.User import User
 
 

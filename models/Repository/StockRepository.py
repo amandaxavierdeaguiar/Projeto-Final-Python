@@ -1,28 +1,29 @@
-from models.Repository.BaseRepository import BaseRepository
-from models.Stock import Stocks
 from sqlmodel import select
 
+from models.Repository.BaseRepository import BaseRepository
+from models.Stock import Stock
 
-class StocksRepository(BaseRepository[Stocks]):
+
+class StocksRepository(BaseRepository[Stock]):
     def __init__(self):
         super().__init__()
 
-    def add(self, entity: Stocks, session_) -> None:
+    def add(self, entity: Stock, session_) -> None:
         session_.add(entity)
         session_.commit()
         session_.refresh(entity)
 
     def get_all(self, session_):
-        statement = select(Stocks)
+        statement = select(Stock)
         result = session_.exec(statement).all()
         return result
 
-    def get_by_id(self, entity: Stocks, session_) -> Stocks:
+    def get_by_id(self, entity: Stock, session_) -> Stock:
         statement = select(entity).where(entity.id == entity.id)
         result = session_.exec(statement)
         return result
 
-    def update(self, entity: Stocks, session_) -> None:
+    def update(self, entity: Stock, session_) -> None:
         statement = select(entity).where(entity.id == entity.id)
         exec_result = session_.exec(statement)
         result = exec_result.one()
@@ -32,7 +33,7 @@ class StocksRepository(BaseRepository[Stocks]):
         session_.commit()
         session_.refresh(result)
 
-    def delete(self, entity: Stocks, session_) -> None:
+    def delete(self, entity: Stock, session_) -> None:
         statement = select(entity).where(entity.id == entity.id)
         exec_result = session_.exec(statement)
         result = exec_result.one()
