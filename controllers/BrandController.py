@@ -9,17 +9,22 @@ class BrandController(BaseController[Brand]):
     def __init__(self):
         super().__init__()
 
-    def add(self, entity: Brand, session_) -> None:
+    @classmethod
+    def add(cls, entity: Brand, session_) -> None:
         pass
 
-    def get_all(self, session_):
+    @classmethod
+    def get_all(cls, session_):
         pass
 
-    def get_by_id(self, entity: Brand, session_) -> Brand:
+    @classmethod
+    def get_by_id(cls, entity: Brand, session_) -> Brand:
         pass
 
-    def update(self, entity: Brand, session_) -> None:
+    @classmethod
+    def update(cls, entity: Brand, session_) -> None:
         pass
 
-    def delete(self, entity: Brand, session_) -> None:
+    @classmethod
+    def delete(cls, entity: Brand, session_) -> None:
         pass

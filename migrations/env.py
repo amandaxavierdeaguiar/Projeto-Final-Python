@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from sqlmodel import SQLModel
+from models import *
 
 load_dotenv()
 
@@ -57,7 +58,8 @@ def run_migrations_offline() -> None:
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
-        compare_type=True
+        compare_type=True,
+        render_as_batch=True,
     )
 
     with context.begin_transaction():
@@ -79,7 +81,10 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            compare_type=True,
+            render_as_batch=True,
         )
 
         with context.begin_transaction():

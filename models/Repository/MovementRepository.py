@@ -4,7 +4,7 @@ from models.Movement import Movement
 from models.Repository.BaseRepository import BaseRepository
 
 
-class MovementsRepository(BaseRepository[Movement]):
+class MovementRepository(BaseRepository[Movement]):
     def __init__(self):
         super().__init__()
 
