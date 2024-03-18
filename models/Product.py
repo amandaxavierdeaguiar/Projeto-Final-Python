@@ -10,9 +10,8 @@ class Product(SQLModel, table=True):
     bar_cod: str = Field(unique=True)
     name: str
     description: str
-    quantity: float
     price: float
-    supplier_id: int = Field(default=None, foreign_key="supplier.id")
+    brand_id: int = Field(default=None, foreign_key="brand.id")
     category_id: int = Field(default=None, foreign_key="category.id")
     # supplier: Optional[Supplier] = Relationship(back_populates="supplier")
     # category: Optional[Category] = Relationship(back_populates="category")

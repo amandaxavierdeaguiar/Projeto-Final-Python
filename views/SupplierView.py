@@ -4,14 +4,13 @@ from customtkinter import *
 from CTkTable import CTkTable
 
 
-class StockView:
-    app: CTk
+class SupplierView:
     session: Session = get_session()
 
     def __init__(self):
         super().__init__()
 
     @classmethod
-    def give_frame(cls) -> CTkFrame:
-        frame = CTkFrame()
+    def give_frame(cls, app_: CTk) -> CTkFrame:
+        frame = CTkFrame(app_)
         return frame
