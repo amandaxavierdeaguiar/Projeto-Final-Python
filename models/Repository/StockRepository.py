@@ -1,7 +1,10 @@
-from sqlmodel import select
+from sqlmodel import select, join
 
 from models.Repository.BaseRepository import BaseRepository
+from models.Category import Category
 from models.Stock import Stock
+from models.Product import Product
+from models.Brand import Brand
 
 
 class StocksRepository(BaseRepository[Stock]):
@@ -14,7 +17,8 @@ class StocksRepository(BaseRepository[Stock]):
         session_.refresh(entity)
 
     def get_all(self, session_):
-        statement = select(Stock)
+        statement = (select(Product.bar_cod, Product.name, Product.brand_id, Product.category_id, Product.price, Stock.quantity)
+                     .join(Product, isouter=True))
         result = session_.exec(statement).all()
         return result
 

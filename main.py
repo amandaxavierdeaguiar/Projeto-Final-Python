@@ -5,13 +5,14 @@ from controllers.ProductController import ProductController
 from controllers.StockController import StockController
 from controllers.SupplierController import SupplierController
 from controllers.UserController import UserController
-from view.stockApp import StockView
+from views.MainView import MainView
 from models.User import User
 from models.db.db_conection import get_session
 
+
 def main():
-    StockView()
-    
+    MainView()
+
     """UserController()
     SupplierController()
     ProductController()
