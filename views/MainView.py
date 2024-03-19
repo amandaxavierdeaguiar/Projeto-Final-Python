@@ -1,18 +1,17 @@
-from models.db.db_conection import get_session
-from sqlmodel import Session
 from customtkinter import *
 from PIL import Image
 from views.LoginView import LoginView
 from views.StockView import StockView
-
+from views.SupplierView import SupplierView
 
 class MainView:
     app: CTk = CTk()
-    session: Session = get_session()
     btn_img: CTkImage
     btn_txt: CTkButton
+    main_frame: CTkFrame
     login: LoginView = LoginView()
     stock: StockView = StockView()
+    supplier: SupplierView = SupplierView()
 
     def __init__(self):
         super().__init__()
@@ -33,11 +32,11 @@ class MainView:
     @classmethod
     def get_frame(cls):
         # Ainda não esta feito e so para ter qual quer coisa aqui
-        is_login = True
+        is_login = False
         if is_login:
-            cls.stock.give_frame(cls.app)
+            cls.call_stock()
         else:
-            cls.login.give_frame(cls.app)
+            cls.main_frame = cls.login.give_frame(cls.app)
 
     @classmethod
     def sidebar(cls):
@@ -53,13 +52,13 @@ class MainView:
         # Colocando e Posicionando a Logo
         CTkLabel(master=sidebar_frame, text="", image=logo_img).pack(pady=(48, 0), anchor="center")
 
-        cls.create_button(sidebar_frame, 'view/assets/list.png', 'Login')
-        cls.create_button(sidebar_frame, 'view/assets/list.png', 'Produtos')
-        cls.create_button(sidebar_frame, 'view/assets/list.png', 'Fornecedores')
-        cls.create_button(sidebar_frame, 'view/assets/list.png', 'Sair')
+        cls.create_button(sidebar_frame, 'view/assets/home.png', 'Login', cls.call_login)
+        cls.create_button(sidebar_frame, 'view/assets/product.png', 'Produtos', cls.call_stock)
+        cls.create_button(sidebar_frame, 'view/assets/supplier.png', 'Supplier', cls.call_supplier)
+        cls.create_button(sidebar_frame, 'view/assets/exit.png', 'Sair', cls.call_exit)
 
     @classmethod
-    def create_button(cls, frame_, img_, text_):
+    def create_button(cls, frame_, img_, text_, command_):
         path_img= Image.open(f'{img_}')
         cls.btn_img = CTkImage(
             dark_image=path_img,
@@ -71,7 +70,28 @@ class MainView:
             fg_color="transparent",
             font=("Verdana", 14),
             hover_color="#045A87",
-            anchor="w"
+            anchor="w",
+            command=command_
         ).pack(
             anchor="center",
             ipady=5, pady=(60, 0))
+        
+    @classmethod
+    def call_stock(cls):
+        cls.main_frame.forget()
+        cls.main_frame = cls.stock.give_frame(cls.app)
+
+    @classmethod
+    def call_login(cls):
+        cls.main_frame.forget()
+        cls.main_frame = cls.login.give_frame(cls.app)
+    
+    @classmethod
+    def call_supplier(cls):
+        cls.main_frame.forget()
+        cls.main_frame = cls.supplier.give_frame(cls.app)
+
+    @classmethod
+    def call_exit(cls):
+        cls.main_frame.forget()
+        cls.main_frame = cls.login.give_frame(cls.app)
