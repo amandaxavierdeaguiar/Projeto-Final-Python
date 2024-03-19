@@ -10,7 +10,8 @@ from sqlmodel import Field, SQLModel
 class Product(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     bar_cod: str = Field(unique=True)
-    name: str
+    name: str = Field(unique=True)
+    photo: str
     description: str
     price: float
     brand_id: int = Field(default=None, foreign_key="brand.id")

@@ -1,6 +1,8 @@
 from sqlmodel import select
 
 from models.Product import Product
+from models.Brand import Brand
+from models.Category import Category
 from models.Repository.BaseRepository import BaseRepository
 
 
@@ -17,6 +19,23 @@ class ProductRepository(BaseRepository[Product]):
     @classmethod
     def get_all(cls, session_):
         statement = select(Product)
+        result = session_.exec(statement).all()
+        return result
+
+    @classmethod
+    def get_all_join(cls, session_):
+        statement = (
+            select(
+                Product.bar_cod,
+                Product.name,
+                Brand.name,
+                Category.name,
+                Product.price,
+            )
+            .join(Brand)
+            .join(Category)
+            .order_by(Product.id)
+        )
         result = session_.exec(statement).all()
         return result
 

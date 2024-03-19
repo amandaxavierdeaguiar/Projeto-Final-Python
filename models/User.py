@@ -1,7 +1,6 @@
 from typing import Optional
 
 from sqlmodel import Field, SQLModel
-
 from models.Enums.TypeAccess import TypeAccess
 
 
