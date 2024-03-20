@@ -105,7 +105,10 @@ class LoginView:
         cls.button_login_e = CTkButton(master=frame, text="Login", fg_color="#008DD2", hover_color="#045A87", font=("Arial Bold", 12), text_color="#ffffff", width=225).pack(anchor="w", pady=(40, 0), padx=(25, 0))
         
         # Outro Botao
-        cls.button_ext = CTkButton(master=frame, text="Continue With Google", fg_color="#EEEEEE", hover_color="#EEEEEE", font=("Arial Bold", 9), text_color="#045A87", width=225).pack(anchor="w", pady=(20, 0), padx=(25, 0))
+        """cls.button_ext = CTkButton(master=frame, text="Continue With Google", fg_color="#EEEEEE", hover_color="#EEEEEE", font=("Arial Bold", 9), text_color="#045A87", width=225).pack(anchor="w", pady=(20, 0), padx=(25, 0))"""
+        
+        #FAZER VALIDACAO PARA O EMAIL.
+        
        
 if __name__ == '__main__':
     LoginView()   

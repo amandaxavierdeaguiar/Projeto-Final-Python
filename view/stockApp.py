@@ -26,6 +26,8 @@ class StockView:
 
         cls.menu = cls.sidebar()
         cls.list_stock = cls.list_stock()
+        
+        cls.app.mainloop()
 
     @classmethod
     def sidebar(cls):
@@ -36,22 +38,19 @@ class StockView:
 
         # Colocando e Posicionando a Logo
 
-        CTkLabel(master=cls.sidebar_frame, text="", image=cls.logo_img).pack(pady=(48, 0), anchor="center")
+        CTkLabel(master=cls.sidebar_frame, text="", image=cls.logo_img).pack(pady=(48, 0),anchor="center")
 
         # ========== Menu/Botões =============
         # Botao 1 Home
         cls.home_button = Image.open("view/assets/home.png")
         cls.home_img = CTkImage(dark_image=cls.home_button, light_image=cls.home_button)
         # Estilo Texto User
-        cls.user_button = CTkButton(master=cls.sidebar_frame, image=cls.home_img, text="Login", fg_color="transparent",
-                                    font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center",
-                                                                                                  ipady=5, pady=(60, 0))
+        cls.user_button = CTkButton(master=cls.sidebar_frame, image=cls.home_img, text="Login", fg_color="transparent",font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(60, 0))
 
         # Botao 2 Produtos
         cls.product_button = Image.open("view/assets/list.png")
         returns_img = CTkImage(dark_image=cls.product_button, light_image=cls.product_button)
-        CTkButton(master=cls.sidebar_frame, image=returns_img, text="Produtos", fg_color="transparent",
-                  font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(16, 0))
+        CTkButton(master=cls.sidebar_frame, image=returns_img, text="Produtos", fg_color="transparent",font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botão 3 Stock  
         cls.button_stock = Image.open("view/assets/product.png")
@@ -63,20 +62,17 @@ class StockView:
         # Botao 4 Fornecedores 
         cls.button_supplier = Image.open("view/assets/supplier.png")
         cls.supplier_img = CTkImage(dark_image=cls.button_supplier, light_image=cls.button_supplier)
-        CTkButton(master=cls.sidebar_frame, image=cls.supplier_img, text="Fornecedores", fg_color="transparent",
-                  font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(16, 0))
+        CTkButton(master=cls.sidebar_frame, image=cls.supplier_img, text="Fornecedores", fg_color="transparent",font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Button 5 - Sair
         cls.exit_button = Image.open("view/assets/exit.png")
         cls.exit_img = CTkImage(dark_image=cls.exit_button, light_image=cls.exit_button)
-        CTkButton(master=cls.sidebar_frame, image=cls.exit_img, text="Sair", fg_color="transparent",
-                  font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(16, 0))
+        CTkButton(master=cls.sidebar_frame, image=cls.exit_img, text="Sair", fg_color="transparent",font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botao 6 Login
         cls.login_button = Image.open("view/assets/user.png")
         cls.login_img = CTkImage(dark_image=cls.login_button, light_image=cls.login_button)
-        CTkButton(master=cls.sidebar_frame, image=cls.login_img, text="Login", fg_color="transparent",
-                  font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(160, 0))
+        CTkButton(master=cls.sidebar_frame, image=cls.login_img, text="Login", fg_color="transparent",font=("Verdana", 14), hover_color="#045A87", anchor="w").pack(anchor="center", ipady=5, pady=(160, 0))
 
     @classmethod
     def list_stock(cls):
@@ -90,8 +86,7 @@ class StockView:
 
         # =========== TITULO STOCK ===========
         # Titulo
-        CTkLabel(master=title_frame, text="Stock", font=("Verdana", 30), text_color="#045A87").pack(anchor="nw",
-                                                                                                    side="left")
+        CTkLabel(master=title_frame, text="Stock", font=("Verdana", 30), text_color="#045A87").pack(anchor="nw",side="left")
 
         # Add novos produtos
         CTkButton(master=title_frame, text="+ Novos Produtos", font=("Verdana", 15), text_color="#fff",
@@ -165,3 +160,6 @@ class StockView:
     @classmethod
     def table_data(cls):
         return cls.ctrl.get_all(cls.session)
+
+if __name__ == '__main__':
+    StockView()
