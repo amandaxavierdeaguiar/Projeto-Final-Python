@@ -14,7 +14,9 @@ class SupplierRepository(BaseRepository[Supplier]):
         session_.refresh(entity)
 
     def get_all(self, session_):
-        statement = select(Supplier)
+        statement = select(
+            Supplier.name, Supplier.address, Supplier.email, Supplier.phone
+        )
         result = session_.exec(statement).all()
         return result
 

@@ -11,20 +11,24 @@ class ProductController(BaseController[Product]):
 
     @classmethod
     def add(cls, entity: Product, session_) -> None:
-        pass
+        cls.repo.add(entity, session_)
 
     @classmethod
     def get_all(cls, session_):
-        pass
+        return cls.repo.get_all(session_)
+
+    @classmethod
+    def get_all_join(cls, session_):
+        return cls.repo.get_all_join(session_)
 
     @classmethod
     def get_by_id(cls, entity: Product, session_) -> Product:
-        pass
+        return cls.repo.get_by_id(entity, session_)
 
     @classmethod
     def update(cls, entity: Product, session_) -> None:
-        pass
+        cls.repo.update(entity, session_)
 
     @classmethod
     def delete(cls, entity: Product, session_) -> None:
-        pass
+        cls.repo.delete(entity, session_)

@@ -27,6 +27,12 @@ class UserRepository(BaseRepository[User]):
         return result
 
     @classmethod
+    def get_by_email(cls, email: str, session_) -> User:
+        statement = select(User).where(User.login == email)
+        result = session_.exec(statement).first()
+        return result
+
+    @classmethod
     def update(cls, entity: User, session_) -> None:
         statement = select(entity).where(entity.id == entity.id)
         exec_result = session_.exec(statement)

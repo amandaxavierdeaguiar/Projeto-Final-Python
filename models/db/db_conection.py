@@ -8,11 +8,11 @@ load_dotenv()
 # sqlite_file_name = "database.db"
 # url = str(os.getenv('SECRET_BD'))
 # url = str(os.getenv('SECRET_BD2'))
-DB_USER = str(os.getenv('DB_USER'))
-DB_PASS = str(os.getenv('DB_PASS'))
-DB_HOST = str(os.getenv('DB_HOST'))
-DB_NAME = str(os.getenv('DB_NAME'))
-url = f'postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
+DB_USER = str(os.getenv("DB_USER"))
+DB_PASS = str(os.getenv("DB_PASS"))
+DB_HOST = str(os.getenv("DB_HOST"))
+DB_NAME = str(os.getenv("DB_NAME"))
+url = f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
 
 
 def get_engine():

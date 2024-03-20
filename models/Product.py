@@ -1,5 +1,7 @@
-from typing import Optional, List
-from sqlmodel import Field, SQLModel, Relationship
+from typing import Optional
+from sqlmodel import Field, SQLModel
+
+
 # from models.Supplier import Supplier
 # from models.Category import Category
 # from models.Stock import Stocks
@@ -8,12 +10,12 @@ from sqlmodel import Field, SQLModel, Relationship
 class Product(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     bar_cod: str = Field(unique=True)
-    name: str
+    name: str = Field(unique=True)
+    photo: str
     description: str
     price: float
     brand_id: int = Field(default=None, foreign_key="brand.id")
     category_id: int = Field(default=None, foreign_key="category.id")
-    # supplier: Optional[Supplier] = Relationship(back_populates="supplier")
     # category: Optional[Category] = Relationship(back_populates="category")
     # stocks: List['Stocks'] = Relationship(back_populates="product") #Ver como vai ficar no banco
     """
