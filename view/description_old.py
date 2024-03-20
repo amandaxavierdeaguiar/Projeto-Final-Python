@@ -5,7 +5,7 @@ from PIL import Image
 import tkinter as tk
 import customtkinter
 
-
+"""" VOU AINDA FAZER! COMO COMBINADO, VOU FAZER JUNTO COM A JANELA DE EDIÇÃO, ASSIM QUE CLICA NO PRODUTO, JA MUDA OS DADOS. """
 
 class AppDescription:
     #ctrl_product: ProductController = ProductController()
@@ -17,7 +17,8 @@ class AppDescription:
         super().__init__()
 
         self.windown()
-        self.description_frame()
+        #self.description_frame()
+        
         self.description_products()
         self.app_description.mainloop()
 
@@ -29,7 +30,7 @@ class AppDescription:
 
         set_appearance_mode("light")
         
-    @ classmethod    
+    @classmethod    
     def img_products(cls):
         cls.prod_frame = CTkFrame(master=cls.app_description, fg_color="white",  width=350, height=650, corner_radius=0)
         cls.prod_frame.pack_propagate(0)
