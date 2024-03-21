@@ -2,11 +2,13 @@ from customtkinter import *
 import customtkinter as ctk
 from customtkinter import CTkFrame, CTkLabel
 from PIL import Image
+#from description_old import AppDescription
 
 class AppRegisterProduct:
-    
-    #ctrl_product: ProductController = ProductController()
-    app_description: CTk = CTk()
+    #see_product: AppDescription =  AppDescription()
+    #ctrl_product: ProductController = ProductController
+    #()
+    app_register_products: CTk = CTk()
     #session: Session = get_session()
     
     def __init__(self):
@@ -16,14 +18,14 @@ class AppRegisterProduct:
         self.description_frames()
         self.create_product_info()
         self.edition_products()
-        self.app_description.mainloop()
+        self.app_register_products.mainloop()
         
         
     @classmethod
     def windown_description(cls): 
-        cls.app_description.geometry("1000x650")
-        cls.app_description.title("Cadastrar Produto")
-        cls.app_description.minsize(width=756, height= 545)
+        cls.app_register_products.geometry("1000x650")
+        cls.app_register_products.title("Cadastrar Produto")
+        cls.app_register_products.minsize(width=756, height= 545)
         set_appearance_mode("light")
         
     
@@ -33,7 +35,7 @@ class AppRegisterProduct:
          
         #FRAME DE DIVISÃO DA TELA
         cls.prod_frame = ctk.CTkFrame(
-            cls.app_description, 
+            cls.app_register_products, 
             width=350, 
             height=650, 
             fg_color="white")
@@ -52,7 +54,7 @@ class AppRegisterProduct:
         
         # FRAME PARA DESCRIÇÃO FUNDO
         cls.desc_frame = ctk.CTkFrame(
-            cls.app_description, 
+            cls.app_register_products, 
             width=1400, 
             fg_color="#E1E1E1")
         cls.desc_frame.pack_propagate(0)
@@ -297,16 +299,15 @@ class AppRegisterProduct:
                                     text="Guardar informação", 
                                     font=("Verdana", 12), 
                                     text_color="#000000",
-                                    border_color= "#E1E1E1",                    
-                                    ) #command= cls.open_description 
+                                    border_color= "#E1E1E1", 
+                                    #command= cls.open_description  
+                                    )
         cls.button_prod.pack(pady=(0), anchor="n")
-                        
+        
     @classmethod
     def open_description(cls):
         pass
-    
-    
-    
+            
             
 if __name__ == '__main__':
     AppRegisterProduct()   
