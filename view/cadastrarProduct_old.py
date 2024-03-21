@@ -2,12 +2,9 @@ from customtkinter import *
 import customtkinter as ctk
 from customtkinter import CTkFrame, CTkLabel
 from PIL import Image
-import tkinter as tk
-import customtkinter
 
-""" TRANSFORMEI EM RESPONSIVO, POREM AINDA SE ENCONTRA EM DESENVOLVIMENTO! VOU INCLUIR A DESCRIÇÃO DO PRODUTO CONFORME COMBINADO, CLICANDO JA MUDA A TELA. """
-
-class AppEditProduct2:
+class AppRegisterProduct:
+    
     #ctrl_product: ProductController = ProductController()
     app_description: CTk = CTk()
     #session: Session = get_session()
@@ -25,7 +22,7 @@ class AppEditProduct2:
     @classmethod
     def windown_description(cls): 
         cls.app_description.geometry("1000x650")
-        cls.app_description.title("Editar Produto")
+        cls.app_description.title("Cadastrar Produto")
         cls.app_description.minsize(width=756, height= 545)
         set_appearance_mode("light")
         
@@ -51,7 +48,6 @@ class AppEditProduct2:
             width=350, 
             height=350)
         cls.photo_bd_frame.pack_propagate(0)
-        """cls.photo_bd_frame.pack(anchor="center", pady=(50, 0))""" # Inclui no codigo
         cls.photo_bd_frame.place(relwidth=1, relheight=1)
         
         # FRAME PARA DESCRIÇÃO FUNDO
@@ -65,13 +61,11 @@ class AppEditProduct2:
         # FRAME PARA POR AS DESCRIÇOES 
         cls.desc_frame_uni = ctk.CTkFrame(
             cls.desc_frame, 
-            width=800, 
-            height=600, 
-            fg_color="#E1E1E1")
+            width=900, #800
+            height=600, #600
+            fg_color="#E1E1E1") 
         cls.desc_frame_uni.pack_propagate(0)
-        #cls.desc_frame_uni.pack(anchor="n", pady=50)
-        cls.desc_frame_uni.pack(anchor="center", pady=100)
-        #cls.desc_frame_uni.place(relwidth=1, relheight=1) 
+        cls.desc_frame_uni.pack(anchor="center", pady=50)
         
         # FRAME TITULO PAGINA DESCRIÇÃO
         cls.frame_name = CTkFrame(master=cls.desc_frame_uni, 
@@ -87,7 +81,7 @@ class AppEditProduct2:
             width=500, 
             height=40, 
             corner_radius=0)
-        cls.frame_name_description.pack(fill="y", pady=0)
+        cls.frame_name_description.pack(fill="y", pady=10)
         
         # FRAME TABELA CODIGO BARRAS
         cls.frame_cod_bar_description = CTkFrame(master=cls.desc_frame_uni, 
@@ -104,6 +98,14 @@ class AppEditProduct2:
             height=40, 
             corner_radius=0)
         cls.frame_brand_description.pack(fill="y", pady=10)
+        
+        # FRAME PARA O VALOR
+        cls.frame_value_description = CTkFrame(master=cls.desc_frame_uni, 
+            fg_color="#E1E1E1",  
+            width=500, 
+            height=40, 
+            corner_radius=0)
+        cls.frame_value_description.pack(fill="y", pady=10)
         
         # FRAME TABELA DESCRIÇÃO
         cls.frame_des_description = CTkFrame(master=cls.desc_frame_uni, 
@@ -146,7 +148,6 @@ class AppEditProduct2:
                 image = cls.prod_img) 
         cls.prod_img_label.place(relwidth=1, relheight=1) #centralizando a imagem
     
-        # POSICIONAR MELHOR BOTAO 
         # BOTAO PARA PEDIR PARA INSERIREM IMAGEM NO BANCO DE DADOS  -    FAZER LIGAÇÃO
         cls.button_img = CTkButton(master=cls.photo_bd_frame, 
                                     fg_color="#008DD2",
@@ -164,7 +165,7 @@ class AppEditProduct2:
     def edition_products(cls):
         
         # INSERIR DADOS DO PRODUTO.
-        cls.text_description="Insira os Dados do produto:"
+        cls.text_description= "Insira os Dados do produto:"
         
         # PRINTAR O TITULO DA DESCRIÇÃO
         cls.tit_desc = CTkLabel(
@@ -184,13 +185,13 @@ class AppEditProduct2:
         
       
         # ENTRY PARA BD DO NOME 
-        cls.frame_cod_barra = CTkEntry(cls.frame_name_description,
+        cls.frame_name_ = CTkEntry(cls.frame_name_description,
                                  fg_color="white",  
                                  width=500, 
                                  height=30, 
                                  corner_radius=0)
-        cls.frame_cod_barra.pack_propagate(0)
-        cls.frame_cod_barra.pack(fill="y", anchor="n", pady=(0), padx= (0), side=RIGHT) #COMMAND
+        cls.frame_name_.pack_propagate(0)
+        cls.frame_name_.pack(fill="y", anchor="n", pady=(0), padx= (0), side=RIGHT) #COMMAND
         
         # CAMPO: CODIGO DE BARRAS
         cls.label_cod_bar = CTkLabel(
@@ -217,14 +218,38 @@ class AppEditProduct2:
         cls.label_brand.pack(anchor="n", pady=(0), side= LEFT)
         
         # ENTRY: MARCA
-        cls.entry_brand = CTkEntry(
-            cls.frame_brand_description,
+        # BOX: MARCA
+        cls.box_brand= CTkComboBox(cls.frame_brand_description,
+                                     values=["Milaneza", "Barilla", "Nacional", "Cigala", "Garofalo", "Bom Petisco", "Baci", "Starbucks", "Kinder" ,"Tritão", "Compal", "Fula", "Lays", "Sidul", "Nobre", "Gallo", "Oliveira da Serra", "Outros"],
+                                     button_color="#008DD2",
+                                     border_color="#008DD2",
+                                     button_hover_color="#008DD2",
+                                     dropdown_hover_color="#008DD2",
+                                     dropdown_fg_color="#E1E1E1",
+                                     dropdown_text_color="#000000",
+                                     width=500,
+                                     height=30, 
+                                     )
+        cls.box_brand.pack(fill="y", anchor="n", pady=(0), padx= (0,0), side= RIGHT)
+        #expand=True)
+               
+        # CAMPO: PREÇO
+        cls.label_value = CTkLabel(
+            cls.frame_value_description, 
+            text =  "Preço:       ",
+            text_color= "black", 
+            font=("Verdana", 14))
+        cls.label_value.pack(anchor="n", pady=(0), side= LEFT)
+        
+        # ENTRY PARA PREÇO
+        cls.entry_value = CTkEntry(
+            cls.frame_value_description,
             fg_color="white",  
             width=500, 
             height=30,
             corner_radius=0)
-        cls.entry_brand.pack(fill="y", anchor="n", pady=(0), padx= (0), side=RIGHT)
-        
+        cls.entry_value.pack(fill="y", anchor="n", pady=(0), padx= (0), side=RIGHT)
+          
         # CAMPO: DESCRIÇÃO
         cls.label_desc = CTkLabel(
             cls.frame_des_description, 
@@ -272,14 +297,16 @@ class AppEditProduct2:
                                     text="Guardar informação", 
                                     font=("Verdana", 12), 
                                     text_color="#000000",
-                                    border_color= "#E1E1E1")
+                                    border_color= "#E1E1E1",                    
+                                    ) #command= cls.open_description 
         cls.button_prod.pack(pady=(0), anchor="n")
-        
+                        
+    @classmethod
+    def open_description(cls):
+        pass
     
     
-    #@classmethod
-                
-        
-
+    
+            
 if __name__ == '__main__':
-    AppEditProduct2()   
+    AppRegisterProduct()   
