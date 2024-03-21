@@ -5,7 +5,7 @@ from PIL import Image
 import tkinter as tk
 import customtkinter
 
-"""" VOU AINDA FAZER! COMO COMBINADO, VOU FAZER JUNTO COM A JANELA DE EDIÇÃO, ASSIM QUE CLICA NO PRODUTO, JA MUDA OS DADOS. """
+"""" VOU A COM A JANELA DE EDIÇÃO, ASSIM QUE CLICA NO PRODUTO, JA MUDA OS DADOS(AINDA EM EXECUCAO)"""
 
 class AppDescription:
     #ctrl_product: ProductController = ProductController()
