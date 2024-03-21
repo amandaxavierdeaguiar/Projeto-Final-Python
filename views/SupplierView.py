@@ -1,3 +1,4 @@
+from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
 from sqlmodel import Session
 from customtkinter import *
@@ -6,19 +7,25 @@ from controllers.SupplierController import SupplierController
 
 
 class SupplierView:
+    frame: CTkFrame
     ctrl: SupplierController = SupplierController()
     session: Session = get_session()
+    user: UserAuthentication
 
-    def __init__(self):
+    def __init__(self, app_, user_: UserAuthentication):
+        self.user = user_
         super().__init__()
+        self.create_frame(app_)
 
     @classmethod
-    def give_frame(cls, app_: CTk) -> CTkFrame:
-        frame = CTkFrame(app_, fg_color="#fff", width=680, height=650, corner_radius=0)
-        frame.pack_propagate(False)
-        frame.pack(side="left")
+    def create_frame(cls, app_: CTk):
+        cls.frame = CTkFrame(
+            app_, fg_color="#fff", width=680, height=650, corner_radius=0
+        )
+        cls.frame.pack_propagate(False)
+        cls.frame.pack(side="left")
 
-        title_frame = CTkFrame(master=frame, fg_color="transparent")
+        title_frame = CTkFrame(master=cls.frame, fg_color="transparent")
         title_frame.pack(anchor="n", fill="x", padx=27, pady=(29, 0))
 
         # =========== TITULO STOCK ===========
@@ -41,7 +48,7 @@ class SupplierView:
         ).pack(anchor="ne", side="right")
 
         # Botão Pesquisar produto
-        search_container = CTkFrame(master=frame, height=50, fg_color="#A9DCF6")
+        search_container = CTkFrame(master=cls.frame, height=50, fg_color="#A9DCF6")
         search_container.pack(fill="x", pady=(45, 0), padx=27)
 
         # Botao pesquisa de produto
@@ -79,13 +86,15 @@ class SupplierView:
             dropdown_text_color="#fff",
         ).pack(side="left", padx=(13, 0), pady=15)
 
+    @classmethod
+    def get_frame(cls) -> CTkFrame:
         # PRODUTOS(IMPORTAR DA DATABASE)
         table_data = cls.ctrl.get_all(cls.session)
         result = ["Nome do Fornecedor", "Morada", "E-mail", "Telefone"]
         table_data.insert(0, result)
 
         # Definições Tabela
-        table_frame = CTkScrollableFrame(master=frame, fg_color="transparent")
+        table_frame = CTkScrollableFrame(master=cls.frame, fg_color="transparent")
         table_frame.pack(expand=True, fill="both", padx=27, pady=21)
         table = CTkTable(
             master=table_frame,
@@ -97,4 +106,4 @@ class SupplierView:
         table.edit_row(0, text_color="#fff", hover_color="#2A8C55")
         table.pack(expand=True)
 
-        return frame
+        return cls.frame

@@ -1,5 +1,7 @@
+from typing import Dict
+
 from sqlmodel import Session
-from pydantic import ValidationError, BaseModel, model_validator
+from pydantic import ValidationError
 
 from models.Repository.UserRepository import UserRepository
 from models.db.db_conection import get_session
@@ -10,11 +12,13 @@ class UserAuthentication:
     password: str
     is_login: bool = False
     session: Session = get_session()
+    permissions: Dict
 
     @classmethod
     def check(cls, login_, password_):
         repo: UserRepository = UserRepository()
         u = repo.get_by_email(login_, cls.session)
+        cls.permissions = cls.give_permissions(u)
         if (
             password_ is not None
             and login_ is not None
@@ -24,3 +28,27 @@ class UserAuthentication:
             cls.is_login = False
             raise ValidationError("Login Incorreto")
         cls.is_login = True
+
+    @classmethod
+    def give_permissions(cls, user):
+        roles: Dict = {
+            "Admin": {
+                "Users": ["Create", "Read", "Update", "Delete"],
+                "Stock": ["Create", "Read", "Update", "Delete"],
+                "Supplier": ["Create", "Read", "Update", "Delete"],
+                "Product": ["Create", "Read", "Update", "Delete"],
+            },
+            "Sub_Admin": {
+                "Users": ["Create", "Read", "Update"],
+                "Stock": ["Create", "Read", "Update"],
+                "Supplier": ["Create", "Read", "Update"],
+                "Product": ["Create", "Read", "Update"],
+            },
+            "User": {
+                "Users": ["Read"],
+                "Stock": ["Read"],
+                "Supplier": ["Read"],
+                "Product": ["Read"],
+            },
+        }
+        return roles[f"{user.typeAccess.value}"]

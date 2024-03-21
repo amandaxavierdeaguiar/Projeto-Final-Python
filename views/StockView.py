@@ -1,5 +1,6 @@
 from controllers.ProductController import ProductController
 from controllers.StockController import StockController
+from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
 from sqlmodel import Session
 from customtkinter import *
@@ -7,20 +8,21 @@ from CTkTable import CTkTable
 
 
 class StockView:
-    app: CTk = CTk()
     frame: CTkFrame
     ctrl_stock: StockController = StockController()
     ctrl_product: ProductController = ProductController()
     session: Session = get_session()
+    user: UserAuthentication
 
-    def __init__(self):
+    def __init__(self, app_, user_: UserAuthentication):
+        self.user = user_
         super().__init__()
-        self.create_frame()
+        self.create_frame(app_, self.user)
 
     @classmethod
-    def create_frame(cls):
+    def create_frame(cls, app_, user_: UserAuthentication):
         cls.frame = CTkFrame(
-            cls.app, fg_color="#fff", width=680, height=650, corner_radius=0
+            app_, fg_color="#fff", width=680, height=650, corner_radius=0
         )
         cls.frame.pack_propagate(False)
         cls.frame.pack(side="left")
@@ -34,15 +36,27 @@ class StockView:
         ).pack(anchor="nw", side="left")
 
         # Add novos produtos
-        CTkButton(
-            master=title_frame,
-            text="+ Novos Produtos",
-            font=("Verdana", 15),
-            text_color="#fff",
-            fg_color="#008DD2",
-            hover_color="#045A87",
-            cursor="hand2",
-        ).pack(anchor="ne", side="right")
+        if "Create" in user_.permissions["Stock"]:
+            CTkButton(
+                master=title_frame,
+                text="+ Novos Produtos",
+                font=("Verdana", 15),
+                text_color="#fff",
+                fg_color="#008DD2",
+                hover_color="#045A87",
+                cursor="hand2",
+            ).pack(anchor="ne", side="right")
+        else:
+            CTkButton(
+                master=title_frame,
+                text="+ Novos Produtos",
+                font=("Verdana", 15),
+                text_color="#fff",
+                fg_color="#008DD2",
+                hover_color="#045A87",
+                cursor="hand2",
+                state="disabled",
+            ).pack(anchor="ne", side="right")
 
         # Botão Pesquisar produto
         search_container = CTkFrame(master=cls.frame, height=50, fg_color="#A9DCF6")
@@ -84,6 +98,8 @@ class StockView:
             dropdown_text_color="#fff",
         ).pack(side="left", padx=(13, 0), pady=15)
 
+    @classmethod
+    def get_frame(cls) -> CTkFrame:
         # PRODUTOS(IMPORTAR DA DATABASE) E DAR MERGE
         table_data = cls.ctrl_stock.get_all(cls.session)
         table_data2 = cls.ctrl_product.get_all_join(cls.session)
@@ -117,7 +133,4 @@ class StockView:
 
         table.edit_row(0, text_color="#fff", hover_color="#2A8C55")
         table.pack(expand=True)
-
-    @classmethod
-    def get_frame(cls) -> CTkFrame:
         return cls.frame
