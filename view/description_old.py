@@ -13,7 +13,7 @@ class AppDescription:
     def __init__(self):
         super().__init__()
         
-        self.windown_description()
+        self.window_description()
         self.description_frames()
         self.create_product_info()
         self.description_products()
@@ -21,7 +21,7 @@ class AppDescription:
         
         
     @classmethod
-    def windown_description(cls): 
+    def window_description(cls): 
         cls.app_description.geometry("1000x650")
         cls.app_description.title("Editar Produto")
         cls.app_description.minsize(width=756, height= 545)
