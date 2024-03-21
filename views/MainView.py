@@ -1,5 +1,6 @@
 from customtkinter import *
 from PIL import Image
+
 from views.LoginView import LoginView
 from views.StockView import StockView
 from views.SupplierView import SupplierView
@@ -33,6 +34,7 @@ class MainView:
     @classmethod
     def get_frame(cls):
         cls.main_frame = cls.login.give_frame(cls.app)
+
 
     @classmethod
     def sidebar(cls):
