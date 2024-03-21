@@ -94,6 +94,11 @@ class StockView:
         # Definições Tabela
         table_frame = CTkScrollableFrame(master=frame, fg_color="transparent")
         table_frame.pack(expand=True, fill="both", padx=27, pady=21)
+<<<<<<< HEAD
+        table = CTkTable(master=table_frame, values=table_data, colors=["#E6E6E6", "#EEEEEE"],
+                         header_color="#008DD2", hover_color="#B4B4B4")
+        table.edit_row(0, text_color="#fff", hover_color="#045A87")
+=======
         table = CTkTable(
             master=table_frame,
             values=result,
@@ -103,6 +108,7 @@ class StockView:
         )
 
         table.edit_row(0, text_color="#fff", hover_color="#2A8C55")
+>>>>>>> 92c7768f8c63defaed3d7ca17e645f75dd1e3adc
         table.pack(expand=True)
 
         return frame

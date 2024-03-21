@@ -229,16 +229,10 @@ class LoginView:
         ).pack(anchor="w", pady=(40, 0), padx=(25, 0))
 
         # Outro Botao
-        cls.button_ext = CTkButton(
-            master=frame,
-            text="Continue With Google",
-            fg_color="#EEEEEE",
-            hover_color="#EEEEEE",
-            font=("Arial Bold", 9),
-            text_color="#045A87",
-            width=225,
-        ).pack(anchor="w", pady=(20, 0), padx=(25, 0))
-
-
-if __name__ == "__main__":
-    LoginView()
+        """cls.button_ext = CTkButton(master=frame, text="Continue With Google", fg_color="#EEEEEE", hover_color="#EEEEEE", font=("Arial Bold", 9), text_color="#045A87", width=225).pack(anchor="w", pady=(20, 0), padx=(25, 0))"""
+        
+        #FAZER VALIDACAO PARA O EMAIL.
+        
+       
+if __name__ == '__main__':
+    LoginView()   
