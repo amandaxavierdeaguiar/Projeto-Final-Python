@@ -268,6 +268,7 @@ class RegisterView:
 
     @classmethod
     def cadastrar(cls):
+        pass
         """cls.name = cls.name_entry.get()
         cls.email = cls.email_entry.get()
         cls.password = cls.pass_entry.get()

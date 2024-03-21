@@ -5,24 +5,20 @@ from PIL import Image
 #from description_old import AppDescription
 
 class AppRegisterProduct:
-    #see_product: AppDescription =  AppDescription()
-    #ctrl_product: ProductController = ProductController
-    #()
     app_register_products: CTk = CTk()
-    #session: Session = get_session()
     
     def __init__(self):
         super().__init__()
         
-        self.windown_description()
+        self.window_description()
         self.description_frames()
-        self.create_product_info()
+        self.register_product()
         self.edition_products()
         self.app_register_products.mainloop()
         
         
     @classmethod
-    def windown_description(cls): 
+    def window_description(cls): 
         cls.app_register_products.geometry("1000x650")
         cls.app_register_products.title("Cadastrar Produto")
         cls.app_register_products.minsize(width=756, height= 545)
@@ -135,7 +131,7 @@ class AppRegisterProduct:
         
     
     @classmethod
-    def create_product_info(cls):
+    def register_product(cls):
         
         # COLOCANDO A IMAGEM
         cls.prod_img = Image.open("view/assets/logo-stock-b.png") # PEGAR NO BANCO DE DADOS
@@ -144,10 +140,9 @@ class AppRegisterProduct:
             size=(200, 200))
         
         # COLOCANDO E POSICIONANDO A IMAGEM
-        
         cls.prod_img_label = ctk.CTkLabel(master=cls.photo_bd_frame, 
-                text="", 
-                image = cls.prod_img) 
+                                          text="", 
+                                          image = cls.prod_img) 
         cls.prod_img_label.place(relwidth=1, relheight=1) #centralizando a imagem
     
         # BOTAO PARA PEDIR PARA INSERIREM IMAGEM NO BANCO DE DADOS  -    FAZER LIGAÇÃO
@@ -156,13 +151,11 @@ class AppRegisterProduct:
                                     text="CARREGUE SUA IMAGEM", 
                                     font=("Verdana", 12), 
                                     text_color="#000000",
-                                    border_color= "#E1E1E1"
+                                    border_color= "#E1E1E1",
                                     )
         cls.button_img.pack(anchor="center")
         cls.button_img.place(in_=cls.prod_img_label, relx=0.27, rely=0.7) 
-        
-        #COMMAND
-        
+                
     @classmethod   
     def edition_products(cls):
         
@@ -300,13 +293,13 @@ class AppRegisterProduct:
                                     font=("Verdana", 12), 
                                     text_color="#000000",
                                     border_color= "#E1E1E1", 
-                                    #command= cls.open_description  
-                                    )
+                                    ) #command= cls.open_description,
         cls.button_prod.pack(pady=(0), anchor="n")
         
     @classmethod
     def open_description(cls):
         pass
+        #AppDescription()
             
             
 if __name__ == '__main__':

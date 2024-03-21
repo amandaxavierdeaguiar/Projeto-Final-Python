@@ -2,9 +2,10 @@ from customtkinter import *
 import customtkinter as ctk
 from customtkinter import CTkFrame, CTkLabel
 from PIL import Image
+#from registerProduct_old import AppRegisterProduct
 
-""" TRANSFORMEI EM RESPONSIVO, POREM AINDA SE ENCONTRA EM DESENVOLVIMENTO! VOU INCLUIR A DESCRIÇÃO DO PRODUTO CONFORME COMBINADO, CLICANDO JA MUDA A TELA. """
 
+""" Esta dando importação circular! """
 class AppDescription:
     #ctrl_product: ProductController = ProductController()
     app_description: CTk = CTk()
@@ -13,15 +14,15 @@ class AppDescription:
     def __init__(self):
         super().__init__()
         
-        self.window_description()
-        self.description_frames()
+        self.window_register_description()
+        self.description_register_frames()
         self.create_product_info()
         self.description_products()
         self.app_description.mainloop()
         
         
     @classmethod
-    def window_description(cls): 
+    def window_register_description(cls): 
         cls.app_description.geometry("1000x650")
         cls.app_description.title("Editar Produto")
         cls.app_description.minsize(width=756, height= 545)
@@ -29,7 +30,7 @@ class AppDescription:
         
     
     @ classmethod 
-    def description_frames(cls) -> CTkFrame:
+    def description_register_frames(cls) -> CTkFrame:
         #NOVA ALTERAÇÃO PARA TORNAR RESPONSIVO!
          
         #FRAME DE DIVISÃO DA TELA
@@ -299,8 +300,7 @@ class AppDescription:
                                     font=("Verdana", 12), 
                                     text_color="#000000",
                                     border_color= "#E1E1E1"
-                                    ) #command=
-        #cls.button_prod.pack(pady=(0), anchor="n")
+                                    )#command= cls.save_product()
         cls.button_prod.pack(pady=(0), side=LEFT, padx=10)
         
         
@@ -318,10 +318,14 @@ class AppDescription:
                                     image= cls.prod_img,
                                     text_color="#000000",
                                     border_color= "#E1E1E1"
-                                    ) #command=
+                                    ) 
         #cls.button_prod.pack(pady=(0), anchor="n")
         cls.button_exclui.pack(pady=(0), side=RIGHT)
-                        
+    
+    @classmethod
+    def save_product(cls):
+        pass
+        #AppRegisterProduct()              
         
 if __name__ == '__main__':
     AppDescription()   
