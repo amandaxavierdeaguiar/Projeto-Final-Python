@@ -101,6 +101,7 @@ class StockView:
             header_color="#008DD2",
             hover_color="#B4B4B4",
         )
+
         table.edit_row(0, text_color="#fff", hover_color="#2A8C55")
         table.pack(expand=True)
 
