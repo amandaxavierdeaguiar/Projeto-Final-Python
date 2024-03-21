@@ -7,20 +7,25 @@ from CTkTable import CTkTable
 
 
 class StockView:
+    app: CTk = CTk()
+    frame: CTkFrame
     ctrl_stock: StockController = StockController()
     ctrl_product: ProductController = ProductController()
     session: Session = get_session()
 
     def __init__(self):
         super().__init__()
+        self.create_frame()
 
     @classmethod
-    def give_frame(cls, app_: CTk) -> CTkFrame:
-        frame = CTkFrame(app_, fg_color="#fff", width=680, height=650, corner_radius=0)
-        frame.pack_propagate(False)
-        frame.pack(side="left")
+    def create_frame(cls):
+        cls.frame = CTkFrame(
+            cls.app, fg_color="#fff", width=680, height=650, corner_radius=0
+        )
+        cls.frame.pack_propagate(False)
+        cls.frame.pack(side="left")
 
-        title_frame = CTkFrame(master=frame, fg_color="transparent")
+        title_frame = CTkFrame(master=cls.frame, fg_color="transparent")
         title_frame.pack(anchor="n", fill="x", padx=27, pady=(29, 0))
 
         # =========== TITULO STOCK ===========
@@ -40,7 +45,7 @@ class StockView:
         ).pack(anchor="ne", side="right")
 
         # Botão Pesquisar produto
-        search_container = CTkFrame(master=frame, height=50, fg_color="#A9DCF6")
+        search_container = CTkFrame(master=cls.frame, height=50, fg_color="#A9DCF6")
         search_container.pack(fill="x", pady=(45, 0), padx=27)
 
         # Botao pesquisa de produto
@@ -92,13 +97,16 @@ class StockView:
         result.insert(0, header)
 
         # Definições Tabela
-        table_frame = CTkScrollableFrame(master=frame, fg_color="transparent")
+        table_frame = CTkScrollableFrame(master=cls.frame, fg_color="transparent")
         table_frame.pack(expand=True, fill="both", padx=27, pady=21)
-<<<<<<< HEAD
-        table = CTkTable(master=table_frame, values=table_data, colors=["#E6E6E6", "#EEEEEE"],
-                         header_color="#008DD2", hover_color="#B4B4B4")
+        table = CTkTable(
+            master=table_frame,
+            values=table_data,
+            colors=["#E6E6E6", "#EEEEEE"],
+            header_color="#008DD2",
+            hover_color="#B4B4B4",
+        )
         table.edit_row(0, text_color="#fff", hover_color="#045A87")
-=======
         table = CTkTable(
             master=table_frame,
             values=result,
@@ -106,8 +114,10 @@ class StockView:
             header_color="#008DD2",
             hover_color="#B4B4B4",
         )
+
         table.edit_row(0, text_color="#fff", hover_color="#2A8C55")
->>>>>>> 92c7768f8c63defaed3d7ca17e645f75dd1e3adc
         table.pack(expand=True)
 
-        return frame
+    @classmethod
+    def get_frame(cls) -> CTkFrame:
+        return cls.frame
