@@ -5,11 +5,10 @@ from PIL import Image
 import tkinter as tk
 import customtkinter
 
-"""" VOU A COM A JANELA DE EDIÇÃO, ASSIM QUE CLICA NO PRODUTO, JA MUDA OS DADOS(AINDA EM EXECUCAO)"""
+""" IRA PARA DESCARTE. SERA UTILIZADO NO EDITPRODUCT POREM AINDA TEM QUE DESENVOLVER ESTA PARTE."""
 
 class AppDescription:
     #ctrl_product: ProductController = ProductController()
-    # ctrl: ProductController = ProductController()
     app_description: CTk = CTk()
     # session: Session = get_session()
 
@@ -17,8 +16,7 @@ class AppDescription:
         super().__init__()
 
         self.windown()
-        #self.description_frame()
-        
+        self.description_frame()
         self.description_products()
         self.app_description.mainloop()
 
@@ -29,10 +27,16 @@ class AppDescription:
         cls.app_description.resizable(0, 0)
 
         set_appearance_mode("light")
-        
-    @classmethod    
-    def img_products(cls):
-        cls.prod_frame = CTkFrame(master=cls.app_description, fg_color="white",  width=350, height=650, corner_radius=0)
+    
+    @ classmethod 
+    def description_frame(cls) -> CTkFrame:
+        #Frame para dividir a tela na parte esquerda.
+        cls.prod_frame = CTkFrame(
+            cls.app_description, 
+            fg_color="white",  
+            width=350, 
+            height=650, 
+            corner_radius=0)
         cls.prod_frame.pack_propagate(0)
         cls.prod_frame.pack(fill="y", anchor="w", side="left")
         

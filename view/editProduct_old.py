@@ -5,6 +5,7 @@ from PIL import Image
 import tkinter as tk
 import customtkinter
 
+""" TRANSFORMEI EM RESPONSIVO, POREM AINDA SE ENCONTRA EM DESENVOLVIMENTO! VOU INCLUIR A DESCRIÇÃO DO PRODUTO CONFORME COMBINADO, CLICANDO JA MUDA A TELA. """
 
 class AppEditProduct2:
     #ctrl_product: ProductController = ProductController()
