@@ -2,14 +2,20 @@ import hashlib
 
 from customtkinter import *
 from PIL import Image
+from sqlmodel import Session
 
+from controllers.UserController import UserController
+from models.User import User
 from models.UserAuthentication import UserAuthentication
+from models.db.db_conection import get_session
 from views.MainView import MainView
 from pydantic import ValidationError
 
 
 class LoginView:
     app: CTk = CTk()
+    ctrl_user: UserController = UserController()
+    session: Session = get_session()
     main_frame: CTkFrame
     box_email: CTkEntry
     box_pass: CTkEntry
@@ -130,6 +136,7 @@ class LoginView:
             font=("Arial Bold", 9),
             text_color="#045A87",
             width=225,
+            command=cls.create_user,
         ).pack(anchor="w", pady=(20, 0), padx=(25, 0))
 
         CTkLabel(
@@ -156,6 +163,14 @@ class LoginView:
                 cls.main_view.window(u)
         except ValidationError as e:
             cls.error_txt = e
+
+    @classmethod
+    def create_user(cls):
+        u = User()
+        u.password = cls.hash_password("123456")
+        u.login = "user@email.com"
+        u.name = "user"
+        cls.ctrl_user.add(u, cls.session)
 
     @classmethod
     def hash_password(cls, pwd):

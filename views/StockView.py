@@ -1,5 +1,8 @@
+from typing import Any
+
 from controllers.ProductController import ProductController
 from controllers.StockController import StockController
+from models.Enums.TypeSearch import TypeSearch
 from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
 from sqlmodel import Session
@@ -8,9 +11,15 @@ from CTkTable import CTkTable
 
 
 class StockView:
+    table_data = None
     frame: CTkFrame
     ctrl_stock: StockController = StockController()
     ctrl_product: ProductController = ProductController()
+    choice_search: CTkComboBox
+    box_search: CTkEntry
+    header_table: CTkTable
+    table: CTkTable
+    table_frame: CTkScrollableFrame
     session: Session = get_session()
     user: UserAuthentication
 
@@ -58,37 +67,22 @@ class StockView:
                 state="disabled",
             ).pack(anchor="ne", side="right")
 
-        # Botão Pesquisar produto
         search_container = CTkFrame(master=cls.frame, height=50, fg_color="#A9DCF6")
         search_container.pack(fill="x", pady=(45, 0), padx=27)
 
-        # Botao pesquisa de produto
-        CTkEntry(
+        cls.box_search = CTkEntry(
             master=search_container,
             width=305,
             placeholder_text="Pesquise o produto",
             border_color="#008DD2",
             border_width=2,
-        ).pack(side="left", padx=(13, 0), pady=15)
+        )
+        cls.box_search.pack(side="left", padx=(13, 0), pady=15)
 
-        # Pesquisar por data
-        cls.box_date = CTkComboBox(
+        cls.choice_search = CTkComboBox(
             master=search_container,
             width=125,
-            values=["Date", "Data Recentes", "Data antigas"],
-            button_color="#008DD2",  # Botao Ordem Data
-            border_color="#008DD2",
-            border_width=2,
-            button_hover_color="#045A87",  # Botao data  hover
-            dropdown_hover_color="#045A87",  # Dentro
-            dropdown_fg_color="#008DD2",
-            dropdown_text_color="#fff",
-        ).pack(side="left", padx=(13, 0), pady=15)
-
-        cls.box_status = CTkComboBox(
-            master=search_container,
-            width=125,
-            values=["Pesquisar:", "Nome", "ID", "Descrição", "Fornecedor"],
+            values=["Pesquisar:", "Nome", "Bar Code", "Categoria", "Marca"],
             button_color="#008DD2",
             border_color="#008DD2",
             border_width=2,
@@ -96,41 +90,63 @@ class StockView:
             dropdown_hover_color="#045A87",
             dropdown_fg_color="#008DD2",
             dropdown_text_color="#fff",
+        )
+        cls.choice_search.pack(side="left", padx=(13, 0), pady=15)
+
+        CTkButton(
+            master=search_container,
+            text="Pesquisar",
+            font=("Verdana", 15),
+            text_color="#fff",
+            fg_color="#008DD2",
+            hover_color="#045A87",
+            cursor="hand2",
+            state="normal",
+            command=cls.call_search,
         ).pack(side="left", padx=(13, 0), pady=15)
 
     @classmethod
-    def get_frame(cls) -> CTkFrame:
+    def call_search(cls):
+        choice = cls.choice_search.get()
+        search = cls.box_search.get()
+        cls.table_frame.destroy()
+        cls.table.destroy()
+        cls.get_frame(search, choice)
+
+    @classmethod
+    def get_frame(cls, search_by=None, on_=None) -> CTkFrame:
         # PRODUTOS(IMPORTAR DA DATABASE) E DAR MERGE
-        table_data = cls.ctrl_stock.get_all(cls.session)
-        table_data2 = cls.ctrl_product.get_all_join(cls.session)
-        x, result, r_temp = 0, [], []
-        while x < len(table_data):
-            r_temp = [x for x in table_data2[x]]
-            r_temp.append(table_data[x][1])
-            result.append(r_temp)
-            x += 1
+        if on_ is None:
+            cls.table_data = cls.ctrl_stock.get_all(cls.session)
+        elif on_ == "Marca":
+            cls.table_data = cls.ctrl_stock.get_all_by_brand(cls.session, search_by)
+        elif on_ == "Categoria":
+            cls.table_data = cls.ctrl_stock.get_all_by_category(cls.session, search_by)
+        elif on_ == "Bar Code":
+            cls.table_data = cls.ctrl_stock.get_by_bar_code(cls.session, search_by)
+        elif on_ == "Nome":
+            cls.table_data = cls.ctrl_stock.get_by_name(cls.session, search_by)
         header = ["Bar Code", "Product Name", "Brand", "Category", "Price", "Quantity"]
-        result.insert(0, header)
-
+        cls.table_data.insert(0, header)
         # Definições Tabela
-        table_frame = CTkScrollableFrame(master=cls.frame, fg_color="transparent")
-        table_frame.pack(expand=True, fill="both", padx=27, pady=21)
-        table = CTkTable(
-            master=table_frame,
-            values=table_data,
+        cls.table_frame = CTkScrollableFrame(master=cls.frame, fg_color="transparent")
+        cls.table_frame.pack(expand=True, fill="both", padx=27, pady=21)
+        cls.table = CTkTable(
+            master=cls.table_frame,
+            values=header,
             colors=["#E6E6E6", "#EEEEEE"],
             header_color="#008DD2",
             hover_color="#B4B4B4",
         )
-        table.edit_row(0, text_color="#fff", hover_color="#045A87")
-        table = CTkTable(
-            master=table_frame,
-            values=result,
+        cls.table.edit_row(0, text_color="#fff", hover_color="#045A87")
+        cls.table = CTkTable(
+            master=cls.table_frame,
+            values=cls.table_data,
             colors=["#E6E6E6", "#EEEEEE"],
             header_color="#008DD2",
             hover_color="#B4B4B4",
         )
 
-        table.edit_row(0, text_color="#fff", hover_color="#2A8C55")
-        table.pack(expand=True)
+        cls.table.edit_row(0, text_color="#fff", hover_color="#2A8C55")
+        cls.table.pack(expand=True)
         return cls.frame
