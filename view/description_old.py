@@ -2,6 +2,7 @@ from customtkinter import *
 import customtkinter as ctk
 from customtkinter import CTkFrame, CTkLabel
 from PIL import Image
+from tkinter import ttk
 #from registerProduct_old import AppRegisterProduct
 
 
@@ -76,7 +77,7 @@ class AppDescription:
             width=500, 
             height=40, 
             corner_radius=0)
-        cls.frame_name.pack(fill="y", pady=20)
+        cls.frame_name.pack(fill="y", pady=30)
         
         # FRAME TABELA NOME
         cls.frame_name_description = CTkFrame(master=cls.desc_frame_uni, 
@@ -114,7 +115,7 @@ class AppDescription:
         cls.frame_des_description = CTkFrame(master=cls.desc_frame_uni, 
             fg_color="#E1E1E1",  
             width=500, 
-            height=40, 
+            height=40,
             corner_radius=0)
         cls.frame_des_description.pack(fill="y", pady=10)
         
@@ -252,22 +253,17 @@ class AppDescription:
         # CAMPO: DESCRIÇÃO
         cls.label_desc = CTkLabel(
             cls.frame_des_description, 
-            text =  "Descrição: ", 
+            text =  "Descrição:  ", 
             text_color= "black", 
             font=("Verdana", 14))
         cls.label_desc.pack(anchor="n", pady=(0), side= LEFT)
         
-        # LABEL: DESCRIÇÃO
-        cls.text_description = " Descrição do produto "
-        cls.entry_desc = CTkLabel(
-            cls.frame_des_description,
-            fg_color="white",  
-            width=500, 
-            height=150,
-            text = cls.text_description, 
-            text_color="black",
-            corner_radius=0)
-        cls.entry_desc.pack(fill="y", anchor="n", pady=(0), padx= (0), side=RIGHT)
+        # DESCRIÇÃO - Cria um widget CTkText dentro do CTkScrollableFrame
+        cls.text_description = CTkTextbox(cls.frame_des_description, wrap='word', height=100, width=500)
+        cls.text_description.insert('1.0', "O Alho Francês (Allium ampeloprasum) é um dos membros da família das cebolas. Tem uma forma cilíndrica, alargando-se em folhas que crescem sobrepostas umas nas outras. É constituído por uma parte branca - o fuste (zona subterrânea) - que é a mais usada na culinária (guisados, tartes e gratinados), e uma parte verde (folhas aéreas) que deve ser aproveitada, por exemplo, na preparação de sopas.\nProduto embalado")
+        cls.text_description.pack(pady=(0), padx= (0)) #fill="y", anchor="n",side=RIGHT
+
+    
         
         # CATEGORIA frame_category_description
         cls.category_label = CTkLabel(

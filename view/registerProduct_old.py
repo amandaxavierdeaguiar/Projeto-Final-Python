@@ -262,6 +262,35 @@ class AppRegisterProduct:
             corner_radius=0)
         cls.entry_desc.pack(fill="y", anchor="n", pady=(0), padx= (0), side=RIGHT)
         
+        # ENTRY: DESCRIÇÃO
+        """cls.entry_desc = CTkEntry(
+            cls.frame_des_description,
+            fg_color="white",  
+            width=500, 
+            height=150,
+            corner_radius=0)
+        cls.entry_desc.pack(fill="y", anchor="n", pady=0, padx=0, side=RIGHT)
+
+        # Adicione uma barra de rolagem para o widget de entrada de texto
+        cls.scrollbar = CTkScrollbar(cls, command=cls.entry_desc.xview_scroll)
+        cls.scrollbar.pack()
+
+        # Conecte a rolagem do widget de entrada de texto à barra de rolagem
+        cls.entry_desc.configure(yscrollcommand=cls.scrollbar.set)"""
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         # CATEGORIA frame_category_description
         cls.category_label = CTkLabel(
             cls.frame_category_description, 
