@@ -1,8 +1,6 @@
 import hashlib
-
 from customtkinter import *
 from PIL import Image
-
 from models.UserAuthentication import UserAuthentication
 from views.MainView import MainView
 from pydantic import ValidationError
@@ -14,7 +12,8 @@ class LoginView:
     box_email: CTkEntry
     box_pass: CTkEntry
     btn_login: CTkButton
-    logo_lbl: CTkLabel
+    login_img: CTkImage
+    login_lbl: CTkLabel
     error_txt: str = ""
     main_view: MainView
 
@@ -45,30 +44,16 @@ class LoginView:
         frame = CTkFrame(master=cls.app, width=450, height=550, fg_color="#ffffff")
         frame.pack_propagate(False)
         frame.pack(expand=True, side="right")
-        """frame = CTkFrame(master=cls.app, width=300, height=480, fg_color="#ffffff")
-        frame.pack_propagate(False)
-        frame.pack(expand=True, side="right")"""
-        
-        # IMAGEM
-        
-        """cls.login_img = Image.open("view/assets/logo-stock-b.png")
-        cls.login_img = CTkImage(light_image=cls.login_img,dark_image=cls.login_img, size=(120,120))
-        cls.login_lbl = CTkButton(master=frame, text="", image=cls.login_img)
-        cls.login_lbl.pack(pady=(20, 0), anchor="center")"""
-        
-        cls.login_img = Image.open("view/assets/login.png")
-        cls.login_img = CTkImage(light_image=cls.login_img,dark_image=cls.login_img, size=(120,120))
-        cls.login_img = cls.login_img.create_scaled_photo_image(1, 1)  # convert CTkImage to PhotoImage
-        cls.login_lbl = CTkButton(master=frame, text="", image=cls.login_img)
-        cls.login_lbl.pack(pady=(20, 0), anchor="center")
+                
+                       
+        # imagem
+        # logo do menu
+   
+        """cls.login_img = Image.open("view/assets/login.png")
+        cls.login_img = CTkImage(dark_image=cls.login_img, light_image=cls.login_img, size=(120, 120))
 
-        #Colocando e Posicionando a Logo
-    
-        """ logo_img = Image.open("view/assets/login.png")
-        logo_img = CTkImage(
-            dark_image=logo_img, light_image=logo_img, size=(77.68, 85.42)
-        )"""
-
+        cls.login_lbl = CTkLabel(master=frame, text="", image=cls.login_img)
+        cls.login_lbl.pack(pady=(40, 20), anchor="center")"""
         # Colocando e Posicionando a Logo
         # cls.logo_lbl = CTkLabel(master=frame, text="", image=logo_img)
         # cls.logo_lbl.pack(pady=(20, 0), anchor="center")
@@ -194,6 +179,7 @@ class LoginView:
 
     @classmethod
     def on_press_bt_login(cls):
+
         try:
             email = cls.box_email.get()
             password = cls.hash_password(cls.box_pass.get())
