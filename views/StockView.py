@@ -107,25 +107,14 @@ class StockView:
 
     @classmethod
     def call_search(cls):
-        choice = cls.choice_search.get()
-        search = cls.box_search.get()
         cls.table_frame.destroy()
         cls.table.destroy()
-        cls.get_frame(search, choice)
+        cls.get_frame()
 
     @classmethod
-    def get_frame(cls, search_by=None, on_=None) -> CTkFrame:
+    def get_frame(cls) -> CTkFrame:
         # PRODUTOS(IMPORTAR DA DATABASE) E DAR MERGE
-        if on_ is None:
-            cls.table_data = cls.ctrl_stock.get_all(cls.session)
-        elif on_ == "Marca":
-            cls.table_data = cls.ctrl_stock.get_all_by_brand(cls.session, search_by)
-        elif on_ == "Categoria":
-            cls.table_data = cls.ctrl_stock.get_all_by_category(cls.session, search_by)
-        elif on_ == "Bar Code":
-            cls.table_data = cls.ctrl_stock.get_by_bar_code(cls.session, search_by)
-        elif on_ == "Nome":
-            cls.table_data = cls.ctrl_stock.get_by_name(cls.session, search_by)
+        cls.table_data = cls.ctrl_stock.get_all(cls.session)
         header = ["Bar Code", "Product Name", "Brand", "Category", "Price", "Quantity"]
         cls.table_data.insert(0, header)
         # Definições Tabela

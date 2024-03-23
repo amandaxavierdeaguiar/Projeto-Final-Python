@@ -36,7 +36,7 @@ class LoginView:
         cls.sidebar_frame.pack(fill="y", anchor="w", side="left")
 
         # logo do menu
-        cls.logo_img = Image.open("view/assets/logo-stock.png")
+        cls.logo_img = Image.open("./assets/logo-stock.png")
         cls.logo_img = CTkImage(
             dark_image=cls.logo_img, light_image=cls.logo_img, size=(77.68, 85.42)
         )
@@ -49,7 +49,7 @@ class LoginView:
 
         # ========== Menu/Botões =============
         # Botao 1 Home
-        cls.home_button = Image.open("view/assets/home.png")
+        cls.home_button = Image.open("./assets/home.png")
         cls.home_img = CTkImage(dark_image=cls.home_button, light_image=cls.home_button)
         # Estilo Texto User
         cls.user_button = CTkButton(
@@ -63,7 +63,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(60, 0))
 
         # Botao 2 Produtos
-        cls.product_button = Image.open("view/assets/list.png")
+        cls.product_button = Image.open("./assets/list.png")
         returns_img = CTkImage(
             dark_image=cls.product_button, light_image=cls.product_button
         )
@@ -78,7 +78,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botão 3 Stock
-        cls.button_stock = Image.open("view/assets/product.png")
+        cls.button_stock = Image.open("./assets/product.png")
         cls.stock_img = CTkImage(
             dark_image=cls.button_stock, light_image=cls.button_stock
         )
@@ -94,7 +94,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botao 4 Fornecedores
-        cls.button_supplier = Image.open("view/assets/supplier.png")
+        cls.button_supplier = Image.open("./assets/supplier.png")
         cls.supplier_img = CTkImage(
             dark_image=cls.button_supplier, light_image=cls.button_supplier
         )
@@ -109,7 +109,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Button 5 - Sair
-        cls.exit_button = Image.open("view/assets/exit.png")
+        cls.exit_button = Image.open("./assets/exit.png")
         cls.exit_img = CTkImage(dark_image=cls.exit_button, light_image=cls.exit_button)
         CTkButton(
             master=cls.sidebar_frame,
@@ -122,7 +122,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botao 6 Login
-        cls.login_button = Image.open("view/assets/user.png")
+        cls.login_button = Image.open("./assets/user.png")
         cls.login_img = CTkImage(
             dark_image=cls.login_button, light_image=cls.login_button
         )
@@ -147,7 +147,7 @@ class LoginView:
 
         # imagem
         # logo do menu
-        cls.logo_img = Image.open("view/assets/login.png")
+        cls.logo_img = Image.open("./assets/login.png")
         cls.logo_img = CTkImage(
             dark_image=cls.logo_img, light_image=cls.logo_img, size=(77.68, 85.42)
         )
@@ -230,9 +230,9 @@ class LoginView:
 
         # Outro Botao
         """cls.button_ext = CTkButton(master=frame, text="Continue With Google", fg_color="#EEEEEE", hover_color="#EEEEEE", font=("Arial Bold", 9), text_color="#045A87", width=225).pack(anchor="w", pady=(20, 0), padx=(25, 0))"""
-        
-        #FAZER VALIDACAO PARA O EMAIL.
-        
-       
-if __name__ == '__main__':
-    LoginView()   
+
+        # FAZER VALIDACAO PARA O EMAIL.
+
+
+if __name__ == "__main__":
+    LoginView()

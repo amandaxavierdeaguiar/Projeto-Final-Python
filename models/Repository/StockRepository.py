@@ -36,7 +36,7 @@ class StocksRepository(BaseRepository[Stock]):
             .join(Stock)
             .order_by(Product.id)
         )
-        result = session_.exec(statement).all()
+        result = session_.exec(statement).mappings().all()
         return result
 
     @classmethod

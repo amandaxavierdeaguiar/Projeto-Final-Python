@@ -8,7 +8,7 @@ class LoginView:
 
     def __init__(self):
         super().__init__()
-        
+
         self.window_login()
         self.login_app.mainloop()
 
@@ -16,7 +16,7 @@ class LoginView:
     def window_login(cls):
         cls.login_app.geometry("1000x650")
         cls.login_app.title("Login")
-        cls.login_app.minsize(width=756, height= 545)
+        cls.login_app.minsize(width=756, height=545)
 
         set_appearance_mode("light")
 
@@ -29,7 +29,7 @@ class LoginView:
         cls.sidebar_frame = CTkFrame(
             master=cls.login_app,
             fg_color="#008DD2",
-            width=176,#176
+            width=176,  # 176
             height=650,
             corner_radius=0,
         )
@@ -37,7 +37,7 @@ class LoginView:
         cls.sidebar_frame.pack(fill="y", anchor="w", side="left")
 
         # logo do menu
-        cls.logo_img = Image.open("view/assets/logo-stock.png")
+        cls.logo_img = Image.open("./assets/logo-stock.png")
         cls.logo_img = CTkImage(
             dark_image=cls.logo_img, light_image=cls.logo_img, size=(77.68, 85.42)
         )
@@ -50,7 +50,7 @@ class LoginView:
 
         # ========== Menu/Botões =============
         # Botao 1 Home
-        cls.home_button = Image.open("view/assets/home.png")
+        cls.home_button = Image.open("./assets/home.png")
         cls.home_img = CTkImage(dark_image=cls.home_button, light_image=cls.home_button)
         # Estilo Texto User
         cls.user_button = CTkButton(
@@ -64,7 +64,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(60, 0))
 
         # Botao 2 Produtos
-        cls.product_button = Image.open("view/assets/list.png")
+        cls.product_button = Image.open("./assets/list.png")
         returns_img = CTkImage(
             dark_image=cls.product_button, light_image=cls.product_button
         )
@@ -79,7 +79,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botão 3 Stock
-        cls.button_stock = Image.open("view/assets/product.png")
+        cls.button_stock = Image.open("./assets/product.png")
         cls.stock_img = CTkImage(
             dark_image=cls.button_stock, light_image=cls.button_stock
         )
@@ -95,7 +95,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botao 4 Fornecedores
-        cls.button_supplier = Image.open("view/assets/supplier.png")
+        cls.button_supplier = Image.open("./assets/supplier.png")
         cls.supplier_img = CTkImage(
             dark_image=cls.button_supplier, light_image=cls.button_supplier
         )
@@ -110,7 +110,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Button 5 - Sair
-        cls.exit_button = Image.open("view/assets/exit.png")
+        cls.exit_button = Image.open("./assets/exit.png")
         cls.exit_img = CTkImage(dark_image=cls.exit_button, light_image=cls.exit_button)
         CTkButton(
             master=cls.sidebar_frame,
@@ -123,7 +123,7 @@ class LoginView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botao 6 Login
-        cls.login_button = Image.open("view/assets/user.png")
+        cls.login_button = Image.open("./assets/user.png")
         cls.login_img = CTkImage(
             dark_image=cls.login_button, light_image=cls.login_button
         )
@@ -141,15 +141,18 @@ class LoginView:
     def login_view(cls):
 
         frame = CTkFrame(
-            #master=cls.login_app, width=300, height=480, fg_color="#ffffff"
-            master=cls.login_app, width=450, height=550, fg_color="#ffffff"
+            # master=cls.login_app, width=300, height=480, fg_color="#ffffff"
+            master=cls.login_app,
+            width=450,
+            height=550,
+            fg_color="#ffffff",
         )
         frame.pack_propagate(0)
         frame.pack(expand=True, side="right")
 
         # imagem
         # logo do menu
-        cls.logo_img = Image.open("view/assets/login.png")
+        cls.logo_img = Image.open("./assets/login.png")
         cls.logo_img = CTkImage(
             dark_image=cls.logo_img, light_image=cls.logo_img, size=(120, 120)
         )
@@ -158,7 +161,7 @@ class LoginView:
 
         CTkLabel(master=frame, text="", image=cls.logo_img).pack(
             pady=(40, 20), anchor="center"
-        ) #pady=(20, 0)
+        )  # pady=(20, 0)
 
         # Mensagem boas vindas - login
         CTkLabel(
@@ -168,7 +171,9 @@ class LoginView:
             anchor="w",
             justify="left",
             font=("Verdana", 24),
-        ).pack(anchor="center", pady=30) #.pack(anchor="w", pady=(5, 5), padx=(25, 0))
+        ).pack(
+            anchor="center", pady=30
+        )  # .pack(anchor="w", pady=(5, 5), padx=(25, 0))
         """CTkLabel(
             master=frame,
             text="Para aceder ao sistema, faça seu login",
@@ -218,19 +223,19 @@ class LoginView:
             show="*",
         ).pack(anchor="w", padx=(25, 0))
 
-
         # BOTAO CADASTRO
         cls.button_register = CTkButton(
-            master=frame, 
-            text="Cadastra-se", 
+            master=frame,
+            text="Cadastra-se",
             fg_color="#008DD2",
             hover_color="#045A87",
             font=("Verdana", 14),
             text_color="#ffffff",
-            width=120)
-        cls.button_register.pack(pady=(0), side = "left", padx=25)
-        
-        #BOTAO LOGIN
+            width=120,
+        )
+        cls.button_register.pack(pady=(0), side="left", padx=25)
+
+        # BOTAO LOGIN
         cls.button_login_e = CTkButton(
             master=frame,
             text="Login",
@@ -239,9 +244,8 @@ class LoginView:
             font=("Verdana", 14),
             text_color="#ffffff",
             width=120,
-        ).pack(pady=(0), side = "right", padx=25)
+        ).pack(pady=(0), side="right", padx=25)
 
-        
-       
-if __name__ == '__main__':
-    LoginView()   
+
+if __name__ == "__main__":
+    LoginView()

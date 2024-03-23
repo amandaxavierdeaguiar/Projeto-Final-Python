@@ -16,7 +16,7 @@ class CategoryRepository(BaseRepository[Category]):
 
     @classmethod
     def get_all(cls, session_):
-        statement = select(Category)
+        statement = select(Category.name)
         result = session_.exec(statement).all()
         return result
 

@@ -17,7 +17,7 @@ class SupplierRepository(BaseRepository[Supplier]):
         statement = select(
             Supplier.name, Supplier.address, Supplier.email, Supplier.phone
         )
-        result = session_.exec(statement).all()
+        result = session_.exec(statement).mappings().all()
         return result
 
     def get_by_id(self, entity: Supplier, session_) -> Supplier:
