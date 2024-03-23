@@ -1,176 +1,130 @@
 import hashlib
+import tkinter as tk
+from pathlib import Path
 
-from customtkinter import *
-from PIL import Image
+import ttkbootstrap as ttk
+from tkinter import *
+from tkinter import PhotoImage
+
+from PIL import Image, ImageTk
+from pydantic import ValidationError
 from sqlmodel import Session
+from ttkbootstrap import Style
+from ttkbootstrap.constants import *
+from tkinter.ttk import Label
 
-from controllers.UserController import UserController
-from models.User import User
+from controllers.StockController import StockController
 from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
 from views.MainView import MainView
-from pydantic import ValidationError
+from views.BaseWindow import BaseWindow
+
+PATH = Path(__file__).parent / "assets"
 
 
-class LoginView:
-    app: CTk = CTk()
-    ctrl_user: UserController = UserController()
-    session: Session = get_session()
-    main_frame: CTkFrame
-    box_email: CTkEntry
-    box_pass: CTkEntry
-    btn_login: CTkButton
-    logo_lbl: CTkLabel
-    error_txt: str = ""
-    main_view: MainView
+class LoginView(ttk.Frame):
+    login_entry_var: ttk.StringVar
+    password_entry_var: ttk.StringVar
+    login_entry: Entry
+    password_entry: Entry
+    login_frame: ttk.Frame
+    img: PhotoImage
+    img_lbl: Label
 
-    def __init__(self):
-        super().__init__()
-        self.window()
-        self.app.mainloop()
+    def __init__(self, master):
+        super().__init__(master, padding=(10, 5))
+        self.pack(fill=BOTH, expand=YES)
 
-    @classmethod
-    def window(cls):
-        cls.app.geometry("856x645")
-        cls.app.title("Stock")
-        cls.app.resizable(False, False)
+        # form variables
+        self.login_entry_var = ttk.StringVar(value="")
+        self.password_entry_var = ttk.StringVar(value="")
 
-        set_appearance_mode("light")
+        self.login_frame = self.create_frame()
 
-        cls.main_frame = cls.create_frame()
+        # form entries
+        self.create_form_entry("Login", self.login_entry_var)
+        self.create_form_entry("Password", self.password_entry_var)
+        self.create_buttonbox()
 
-    @classmethod
-    def create_frame(cls) -> CTkFrame:
-        frame = CTkFrame(master=cls.app, width=300, height=480, fg_color="#ffffff")
-        frame.pack_propagate(False)
-        frame.pack(expand=True, side="right")
-
-        # logo do menu
-        logo_img = Image.open("view/assets/login.png")
-        logo_img = CTkImage(
-            dark_image=logo_img, light_image=logo_img, size=(77.68, 85.42)
+    def create_frame(self):
+        self.login_frame = Frame(
+            self, width=600, height=400, pady=50, padx=50, background="white"
         )
+        # self.login_frame.configure(padding=50)
+        self.login_frame.pack(expand=False)
+        self.login_frame.place(relx=0.5, rely=0.5, anchor="center")
 
-        # Colocando e Posicionando a Logo
-        # cls.logo_lbl = CTkLabel(master=frame, text="", image=logo_img)
-        # cls.logo_lbl.pack(pady=(20, 0), anchor="center")
-
-        # Mensagem boas vindas - login
-        CTkLabel(
-            master=frame,
-            text="Entre!",
-            text_color="#045A87",
-            anchor="w",
-            justify="left",
-            font=("Arial Bold", 24),
-        ).pack(anchor="w", pady=(5, 5), padx=(25, 0))
-        CTkLabel(
-            master=frame,
-            text="Sign in to your account",
-            text_color="#7E7E7E",
-            anchor="w",
-            justify="left",
-            font=("Arial Bold", 12),
-        ).pack(anchor="w", padx=(25, 0))
-
-        # Entrada Email
-        CTkLabel(
-            master=frame,
-            text="Email:",
-            text_color="#045A87",
-            anchor="w",
-            justify="left",
-            font=("Arial Bold", 14),
-            compound="left",
-        ).pack(anchor="w", pady=(5, 0), padx=(25, 0))
-        # Entrada para por o email
-        cls.box_email = CTkEntry(
-            master=frame,
-            width=225,
-            fg_color="#EEEEEE",
-            border_color="#045A87",
-            border_width=1,
-            text_color="#000000",
+        self.img = PhotoImage(master=self.login_frame, file=PATH / "login.png")
+        self.img_lbl = Label(master=self.login_frame, image=self.img)
+        self.img_lbl.configure(
+            background="white",
+            compound="image",
+            anchor="center",
+            justify="center",
+            padding=5,
         )
-        cls.box_email.pack(anchor="w", padx=(25, 0))
+        self.img_lbl.pack(side=TOP, padx=5, pady=5, fill=tk.X, expand=tk.YES)
 
-        # Entrada para por a password
-        CTkLabel(
-            master=frame,
-            text="Password:",
-            text_color="#045A87",
-            anchor="w",
-            justify="left",
-            font=("Arial Bold", 14),
-            compound="left",
-        ).pack(anchor="w", pady=(21, 0), padx=(25, 0))
-        cls.box_pass = CTkEntry(
-            master=frame,
-            width=225,
-            fg_color="#EEEEEE",
-            border_color="#045A87",
-            border_width=1,
-            text_color="#000000",
-            show="*",
-        )
-        cls.box_pass.pack(anchor="w", padx=(25, 0))
+        return self.login_frame
 
-        # Botao Login
-        cls.btn_login = CTkButton(
-            master=frame,
+    def create_form_entry(self, label, variable):
+        """Create a single form entry"""
+        container = Frame(master=self.login_frame)
+        container.pack(fill=X, expand=YES, pady=5)
+
+        lbl = Label(master=container, text=label.title(), width=10)
+        lbl.configure(background="white", justify="right", anchor="e")
+        lbl.pack(side=LEFT, padx=5)
+
+        if label.title() == "Password":
+            self.password_entry = Entry(
+                master=container, textvariable=variable, show="*"
+            )
+            self.password_entry.pack(side=LEFT, padx=5, fill=X, expand=YES)
+        else:
+            self.login_entry = Entry(master=container, textvariable=variable)
+            self.login_entry.pack(side=LEFT, padx=5, fill=X, expand=YES)
+
+    def create_buttonbox(self):
+        """Create the application buttonbox"""
+        container = Frame(self.login_frame)
+        container.pack(fill=tk.BOTH, expand=YES, side="bottom", pady=5)
+
+        sub_btn = Button(
+            master=container,
             text="Login",
-            fg_color="#008DD2",
-            hover_color="#045A87",
-            font=("Arial Bold", 12),
-            text_color="#ffffff",
-            width=225,
-            command=cls.on_press_bt_login,
-        ).pack(anchor="w", pady=(40, 0), padx=(25, 0))
+            cursor="hand2",
+            command=self.on_submit,
+            width=15,
+        )
+        sub_btn.pack(fill=tk.BOTH, padx=5, pady=5)
+        sub_btn.focus_set()
 
-        # Outro Botao
-        CTkButton(
-            master=frame,
-            text="Register new User",
-            fg_color="#EEEEEE",
-            hover_color="#EEEEEE",
-            font=("Arial Bold", 9),
-            text_color="#045A87",
-            width=225,
-            command=cls.create_user,
-        ).pack(anchor="w", pady=(20, 0), padx=(25, 0))
+        cnl_btn = Button(
+            master=container,
+            text="Registar",
+            cursor="hand2",
+            command=self.on_cancel,
+            width=15,
+        )
+        cnl_btn.pack(fill=tk.BOTH, padx=5, pady=5)
 
-        CTkLabel(
-            master=frame,
-            text=f"{cls.error_txt}",
-            text_color="#045A87",
-            anchor="w",
-            justify="left",
-            font=("Arial Bold", 14),
-            compound="left",
-        ).pack(anchor="w", pady=(22, 0), padx=(25, 0))
-        return frame
-
-    @classmethod
-    def on_press_bt_login(cls):
+    def on_submit(self):
         try:
-            email = cls.box_email.get()
-            password = cls.hash_password(cls.box_pass.get())
+            email = self.login_entry.get()
+            password = self.hash_password(self.password_entry.get())
             u = UserAuthentication()
             u.check(email, password)
             if u.is_login:
-                cls.app.destroy()
-                cls.main_view = MainView(u)
-                cls.main_view.window(u)
+                self.destroy()
+                main_view = MainView(u)
+                main_view.window(u)
         except ValidationError as e:
-            cls.error_txt = e
+            print(e)
 
-    @classmethod
-    def create_user(cls):
-        u = User()
-        u.password = cls.hash_password("123456")
-        u.login = "user@email.com"
-        u.name = "user"
-        cls.ctrl_user.add(u, cls.session)
+    def on_cancel(self):
+        """Cancel and close the application."""
+        self.quit()
 
     @classmethod
     def hash_password(cls, pwd):
