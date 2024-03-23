@@ -7,8 +7,8 @@ from views.LoginView import LoginView
 
 def main():
     app = BaseWindow(
-        "Login",
-        "cosmo",
+        title="Login",
+        themename="cosmo",
         background="#EBEBEB",
         resizable=(True, True),
         size=[856, 645],

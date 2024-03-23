@@ -1,23 +1,16 @@
 import hashlib
 import tkinter as tk
 from pathlib import Path
-
-import ttkbootstrap as ttk
 from tkinter import *
 from tkinter import PhotoImage
-
-from PIL import Image, ImageTk
-from pydantic import ValidationError
-from sqlmodel import Session
-from ttkbootstrap import Style
-from ttkbootstrap.constants import *
 from tkinter.ttk import Label
 
-from controllers.StockController import StockController
+import ttkbootstrap as ttk
+from pydantic import ValidationError
+from ttkbootstrap.constants import *
+
 from models.UserAuthentication import UserAuthentication
-from models.db.db_conection import get_session
 from views.MainView import MainView
-from views.BaseWindow import BaseWindow
 
 PATH = Path(__file__).parent / "assets"
 
@@ -32,6 +25,7 @@ class LoginView(ttk.Frame):
     img_lbl: Label
 
     def __init__(self, master):
+        self.root = master
         super().__init__(master, padding=(10, 5))
         self.pack(fill=BOTH, expand=YES)
 
@@ -117,8 +111,7 @@ class LoginView(ttk.Frame):
             u.check(email, password)
             if u.is_login:
                 self.destroy()
-                main_view = MainView(u)
-                main_view.window(u)
+                MainView(self.root, u)
         except ValidationError as e:
             print(e)
 

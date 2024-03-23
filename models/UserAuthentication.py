@@ -45,7 +45,7 @@ class UserAuthentication:
                 "Product": ["Create", "Read", "Update"],
             },
             "User": {
-                "Users": ["Read"],
+                "Users": [],
                 "Stock": ["Read"],
                 "Supplier": ["Read"],
                 "Product": ["Read"],
