@@ -50,6 +50,7 @@ class TableBootstrap():
             ('Brócolis', 'Verduras Frescas', 1.50, 'Legume'),
             ('Vinho Tinto', 'Bebidas Finas', 12.99, 'Bebida'),
             ('Melancia', 'Frutas Refrescantes', 2.00, 'Fruta'),
+            ('kiwi', 'Frutas Citrica', 2.00, 'Fruta'),
         ]
         
         

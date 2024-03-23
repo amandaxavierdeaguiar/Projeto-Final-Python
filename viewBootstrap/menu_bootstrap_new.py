@@ -35,14 +35,14 @@ class Nav:
     def menu(cls):
         
         # Botao 1 - Logo
-        img_logo = Image.open("viewBootstrap/assets/logo-stock-b.png")
+        img_logo = Image.open("assets/logo-stock-b.png")
         cls.img_logo = ImageTk.PhotoImage(img_logo.resize((100, 100)))
         cls.button1 = Button(cls.main_frame, width=172, height=230, image=cls.img_logo, text='')
         #cls.button1.configure(style= "My.TButton")
         cls.button1.grid(column=0, row=0)
 
         # botao 2
-        img_img2 = Image.open("viewBootstrap/assets/list.png")
+        img_img2 = Image.open("assets/list.png")
         cls.img_img2 = ImageTk.PhotoImage(img_img2.resize((30,35)))
         cls.button2 = Button(cls.main_frame,
             width=170,
@@ -56,7 +56,7 @@ class Nav:
         cls.button2.grid(column=0, row=1)  
         
         # botao 3
-        img_img3 = Image.open("./viewBootstrap/assets/supplier.png")
+        img_img3 = Image.open("assets/supplier.png")
         cls.img_img3 = ImageTk.PhotoImage(img_img3.resize((30,35)))
         cls.button3 = Button(cls.main_frame,
             width=170,
@@ -71,7 +71,7 @@ class Nav:
         cls.button3.grid(column=0, row=2)  # Posiciona o botão no grid
         
         # botao 4
-        img_img4 = Image.open("viewBootstrap/assets/user.png")
+        img_img4 = Image.open("assets/user.png")
         cls.img_img4 = ImageTk.PhotoImage(img_img4.resize((25,25)))
         cls.button4 = Button(cls.main_frame,
             width=170,
@@ -86,7 +86,7 @@ class Nav:
         cls.button4.grid(column=0, row=4)  # Posiciona o botão no grid
         
         # botao 5
-        img_img5 = Image.open("viewBootstrap/assets/user.png")
+        img_img5 = Image.open("assets/user.png")
         cls.img_img5 = ImageTk.PhotoImage(img_img5.resize((25,25)))
         cls.button5 = Button(cls.main_frame,
             width=13,
