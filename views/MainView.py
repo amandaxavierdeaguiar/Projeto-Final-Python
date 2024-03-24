@@ -36,10 +36,7 @@ class MainView(ttk.Frame):
         self.frames_nav()
         self.menu()
         # self.pack(fill=BOTH, expand=YES)
-        my_style = ttk.Style("cosmo")
-        my_style.configure(
-            "My.TButton", cursor="hand2", compound=tk.LEFT, font=("Verdana", 14)
-        )
+        ttk.Style("cosmo").configure("TButton", font="TkFixedFont 12")
 
     def frames_nav(self):
         self.menu_frame = ttk.Frame(self.root, width=170, height=30, style=PRIMARY)
