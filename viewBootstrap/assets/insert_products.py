@@ -34,12 +34,12 @@ class InsertProduct:
         
     @classmethod
     def register_product(cls):
-           
-        prod_img = Image.open('assets/add_products.png')
-        new_img = prod_img.resize((100,100))
-        img_prod = ImageTk.PhotoImage(new_img)
-        cls.lbl_image = tk.Label(cls.photo_bd_frame, image=img_prod)
-        cls.lbl_image.grid(row=0 , column=0, padx=10, pady=10)
+        # Botao 1 - Logo
+        image_prod = Image.open("assets/add_product.png")
+        cls.image_prod = ImageTk.PhotoImage(image_prod.resize((100, 100)))
+        cls.button1 = Button(cls.photo_bd_frame, width=172, height=230, image=cls.image_prod, text='')
+        cls.button1.grid(column=0, row=0)
+        
         
 
         
