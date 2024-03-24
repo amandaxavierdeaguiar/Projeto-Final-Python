@@ -1,116 +1,127 @@
-from customtkinter import *
-from PIL import Image
+import tkinter as tk
+from pathlib import Path
+from tkinter import *
+
+import ttkbootstrap as ttk
+from PIL import ImageTk, Image
+from ttkbootstrap.constants import *
 
 from models.UserAuthentication import UserAuthentication
 from views.StockView import StockView
 from views.SupplierView import SupplierView
 
+PATH = Path(__file__).parent / "assets"
 
-class MainView:
-    app: CTk = CTk()
-    btn_products: CTkButton
-    btn_supplier: CTkButton
-    btn_exit: CTkButton
-    main_frame: CTkFrame
-    menu_frame: CTkFrame
-    box_email: CTkEntry
-    box_pass: CTkEntry
-    btn_login: CTkButton
+
+class MainView(ttk.Frame):
+    root = None
     error_txt: str = ""
+    menu_frame: ttk.Frame
+    main_frame: ttk.Frame
     user: UserAuthentication
     stock: StockView
     supplier: SupplierView
+    img_logo: ImageTk.PhotoImage
+    button1: Button
+    button2: Button
+    button3: Button
+    button4: Button
 
-    def __init__(self, user_: UserAuthentication):
+    def __init__(self, master, user_: UserAuthentication):
+        super().__init__(master, padding=(10, 5))
+        self.root = master
         self.user = user_
-        super().__init__()
+        self.frames_nav()
+        self.menu(user_)
+        self.stock = StockView(master, user_)
+        self.main_frame = self.stock.get_frame(user_)
+        self.pack(fill=BOTH, expand=YES)
 
     @classmethod
-    def window(cls, user_: UserAuthentication):
-        cls.user = user_
-        cls.app.geometry("856x645")
-        cls.app.title("Stock")
-        cls.app.resizable(False, False)
-
-        set_appearance_mode("light")
-
-        cls.menu_frame = cls.sidebar(cls.app)
-
-        cls.create_buttons_menu()
-        cls.stock = StockView(cls.app, cls.user)
-        cls.main_frame = cls.stock.get_frame()
-        cls.app.mainloop()
+    def frames_nav(cls):
+        cls.menu_frame = ttk.Frame(cls.root, width=176, height=30, style=PRIMARY)
+        cls.menu_frame.pack(fill=BOTH, side="left", expand=False)
 
     @classmethod
-    def create_buttons_menu(cls):
-        # Criaçao dos botoes do menu
-        cls.btn_products = cls.create_button(
-            cls.menu_frame, "view/assets/product.png", "Produtos", cls.call_stock
+    def create_button(cls, frame_, img_, text_, command_, row_, disabled_) -> Button:
+        img_path_temp = Image.open(PATH / img_)
+        img_temp = ImageTk.PhotoImage(img_path_temp.resize((30, 35)))
+        if disabled_:
+            btn_temp = Button(
+                master=frame_,
+                width=170,
+                height=75,
+                cursor="hand2",
+                image=img_temp,
+                compound=tk.LEFT,
+                command=command_,
+                text=text_,
+                state="disabled",
+                font=("Verdana", 12),
+            )
+            btn_temp.grid(column=0, row=row_)
+            return btn_temp
+        else:
+            btn_temp = Button(
+                master=frame_,
+                width=170,
+                height=75,
+                cursor="hand2",
+                image=img_temp,
+                compound=tk.LEFT,
+                command=command_,
+                text=text_,
+                font=("Verdana", 12),
+            )
+            btn_temp.grid(column=0, row=row_)
+            return btn_temp
+
+    @classmethod
+    def menu(cls, user_):
+        img_logo = Image.open(PATH / "logo-stock-b.png")
+        cls.img_logo = ImageTk.PhotoImage(img_logo.resize((100, 100)))
+        cls.button1 = Button(
+            cls.menu_frame, width=172, height=230, image=cls.img_logo, text=""
         )
-        cls.btn_supplier = cls.create_button(
-            cls.menu_frame, "view/assets/supplier.png", "Supplier", cls.call_supplier
+        cls.button1.grid(column=0, row=0)
+
+        cls.button2 = cls.create_button(
+            cls.menu_frame, "list.png", "Stock", cls.call_stock, 1, False
         )
-        cls.btn_exit = cls.create_button(
-            cls.menu_frame, "view/assets/exit.png", "Sair", cls.call_exit
+        cls.button3 = cls.create_button(
+            cls.menu_frame, "supplier.png", "Fornecedor", cls.call_supplier, 2, False
+        )
+
+        if "Read" in user_.permissions["Users"]:
+            cls.button4 = cls.create_button(
+                cls.menu_frame, "user.png", "Users", cls.call_supplier, 3, False
+            )
+        else:
+            cls.button4 = cls.create_button(
+                cls.menu_frame, "user.png", "Users", cls.call_supplier, 3, True
+            )
+
+        cls.button5 = cls.create_button(
+            cls.menu_frame, "exit.png", "Logout", cls.call_exit, 5, False
         )
 
     @classmethod
     def logout(cls):
-        cls.main_frame.forget()
+        cls.menu_frame.forget()
         # cls.login.window()
 
     @classmethod
     def call_stock(cls):
-        cls.main_frame.forget()
-        cls.stock = StockView(cls.app, cls.user)
-        cls.main_frame = cls.stock.get_frame()
+        cls.menu_frame.forget()
+        cls.stock = StockView(cls.root, cls.user)
+        cls.menu_frame = cls.stock.get_frame()
 
     @classmethod
     def call_supplier(cls):
-        cls.main_frame.forget()
-        cls.supplier = SupplierView(cls.app, cls.user)
-        cls.main_frame = cls.supplier.get_frame()
+        cls.menu_frame.forget()
+        cls.supplier = SupplierView(cls.root, cls.user)
+        # cls.main_frame = cls.supplier.get_frame()
 
     @classmethod
     def call_exit(cls):
-        cls.main_frame.destroy()
-
-    @classmethod
-    def create_button(cls, frame_, img_, text_, command_) -> CTkButton:
-        path_img = Image.open(f"{img_}")
-        btn_img = CTkImage(dark_image=path_img, light_image=path_img)
-        btn_temp = CTkButton(
-            master=frame_,
-            image=btn_img,
-            text=f"{text_}",
-            fg_color="transparent",
-            font=("Verdana", 14),
-            hover_color="#045A87",
-            anchor="w",
-            command=command_,
-            state="normal",
-        )
-        btn_temp.pack(anchor="center", ipady=5, pady=(60, 0))
-        return btn_temp
-
-    @classmethod
-    def sidebar(cls, app_):
-        # Criando Frame do Menu
-        menu_frame = CTkFrame(
-            master=app_, fg_color="#008DD2", width=176, height=650, corner_radius=0
-        )
-        menu_frame.pack_propagate(False)
-        menu_frame.pack(fill="y", anchor="w", side="left")
-
-        # logo do menu
-        logo_img_path = Image.open("view/assets/logo-stock-b.png")
-        logo_img = CTkImage(
-            dark_image=logo_img_path,
-            light_image=logo_img_path,
-            size=(77.68, 85.42),
-        )
-
-        # Colocando e Posicionando a Logo
-        menu_logo = CTkLabel(master=menu_frame, image=logo_img)
-        menu_logo.pack(pady=(48, 0), anchor="center")
-        return menu_frame
+        cls.menu_frame.destroy()

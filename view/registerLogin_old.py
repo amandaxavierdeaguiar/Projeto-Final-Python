@@ -3,12 +3,13 @@ from CTkTable import CTkTable
 from PIL import Image
 from tkinter import messagebox
 
+
 class RegisterView:
     register_app: CTk = CTk()
 
     def __init__(self):
         super().__init__()
-        
+
         self.window_register()
         self.register_app.mainloop()
 
@@ -16,20 +17,20 @@ class RegisterView:
     def window_register(cls):
         cls.register_app.geometry("1000x650")
         cls.register_app.title("Registro")
-        cls.register_app.minsize(width=756, height= 545)
+        cls.register_app.minsize(width=756, height=545)
 
         set_appearance_mode("light")
 
         cls.menu = cls.sidebar()
-        cls.register_view= cls.register_view()
-        
+        cls.register_view = cls.register_view()
+
     @classmethod
     def sidebar(cls):
         # Criando Frame do Menu
         cls.sidebar_frame = CTkFrame(
             master=cls.register_app,
             fg_color="#008DD2",
-            width=176,#176
+            width=176,  # 176
             height=650,
             corner_radius=0,
         )
@@ -37,7 +38,7 @@ class RegisterView:
         cls.sidebar_frame.pack(fill="y", anchor="w", side="left")
 
         # logo do menu
-        cls.logo_img = Image.open("view/assets/logo-stock.png")
+        cls.logo_img = Image.open("./assets/logo-stock.png")
         cls.logo_img = CTkImage(
             dark_image=cls.logo_img, light_image=cls.logo_img, size=(77.68, 85.42)
         )
@@ -50,7 +51,7 @@ class RegisterView:
 
         # ========== Menu/Botões =============
         # Botao 1 Home
-        cls.home_button = Image.open("view/assets/home.png")
+        cls.home_button = Image.open("./assets/home.png")
         cls.home_img = CTkImage(dark_image=cls.home_button, light_image=cls.home_button)
         # Estilo Texto User
         cls.user_button = CTkButton(
@@ -64,7 +65,7 @@ class RegisterView:
         ).pack(anchor="center", ipady=5, pady=(60, 0))
 
         # Botao 2 Produtos
-        cls.product_button = Image.open("view/assets/list.png")
+        cls.product_button = Image.open("./assets/list.png")
         returns_img = CTkImage(
             dark_image=cls.product_button, light_image=cls.product_button
         )
@@ -79,7 +80,7 @@ class RegisterView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botão 3 Stock
-        cls.button_stock = Image.open("view/assets/product.png")
+        cls.button_stock = Image.open("./assets/product.png")
         cls.stock_img = CTkImage(
             dark_image=cls.button_stock, light_image=cls.button_stock
         )
@@ -95,7 +96,7 @@ class RegisterView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botao 4 Fornecedores
-        cls.button_supplier = Image.open("view/assets/supplier.png")
+        cls.button_supplier = Image.open("./assets/supplier.png")
         cls.supplier_img = CTkImage(
             dark_image=cls.button_supplier, light_image=cls.button_supplier
         )
@@ -110,7 +111,7 @@ class RegisterView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Button 5 - Sair
-        cls.exit_button = Image.open("view/assets/exit.png")
+        cls.exit_button = Image.open("./assets/exit.png")
         cls.exit_img = CTkImage(dark_image=cls.exit_button, light_image=cls.exit_button)
         CTkButton(
             master=cls.sidebar_frame,
@@ -123,7 +124,7 @@ class RegisterView:
         ).pack(anchor="center", ipady=5, pady=(16, 0))
 
         # Botao 6 Login
-        cls.login_button = Image.open("view/assets/user.png")
+        cls.login_button = Image.open("./assets/user.png")
         cls.login_img = CTkImage(
             dark_image=cls.login_button, light_image=cls.login_button
         )
@@ -154,9 +155,8 @@ class RegisterView:
             anchor="w",
             justify="left",
             font=("Verdana", 24),
-        ).pack(anchor="center", pady=30) 
-        
-        
+        ).pack(anchor="center", pady=30)
+
         # LABEL NOME:
         cls.txt_name = CTkLabel(
             master=frame,
@@ -167,7 +167,7 @@ class RegisterView:
             font=("Verdana", 14),
             compound="left",
         ).pack(anchor="w", pady=(5, 0), padx=(25, 0))
-        
+
         # ENTRY NOME:
         cls.name_entry = CTkEntry(
             master=frame,
@@ -188,7 +188,7 @@ class RegisterView:
             font=("Verdana", 14),
             compound="left",
         ).pack(anchor="w", pady=(20, 0), padx=(25, 0))
-        
+
         # ENTRY PARA E-MAIL:
         cls.email_entry = CTkEntry(
             master=frame,
@@ -198,7 +198,7 @@ class RegisterView:
             border_width=1,
             text_color="#000000",
         ).pack(anchor="w", padx=(25, 0))
-        
+
         # LABEL PARA PASSWORD
         cls.txt_pass = CTkLabel(
             master=frame,
@@ -209,7 +209,7 @@ class RegisterView:
             font=("Verdana", 14),
             compound="left",
         ).pack(anchor="w", pady=(20, 0), padx=(25, 0))
-        
+
         # ENTRY PARA PASSWORD
         cls.pass_entry = CTkEntry(
             master=frame,
@@ -220,7 +220,7 @@ class RegisterView:
             text_color="#000000",
             show="*",
         ).pack(anchor="w", padx=(25, 0))
-        
+
         # LABEL PARA PASSWORD VERIFICACÃO
         cls.txt_pass_verification = CTkLabel(
             master=frame,
@@ -231,7 +231,7 @@ class RegisterView:
             font=("Verdana", 14),
             compound="left",
         ).pack(anchor="w", pady=(20, 0), padx=(25, 0))
-        
+
         # ENTRY PARA PASSWORD VERIFICACÃO
         cls.pass_verification_entry = CTkEntry(
             master=frame,
@@ -245,17 +245,18 @@ class RegisterView:
 
         # BOTAO CADASTRO
         cls.button_register = CTkButton(
-            master=frame, 
-            text="Cadastra-se", 
+            master=frame,
+            text="Cadastra-se",
             fg_color="#008DD2",
             hover_color="#045A87",
             font=("Verdana", 14),
             text_color="#ffffff",
             command=cls.cadastrar,
-            width=120)
-        cls.button_register.pack(pady=(0), side = "left", padx=25)
-        
-        #BOTAO LOGIN
+            width=120,
+        )
+        cls.button_register.pack(pady=(0), side="left", padx=25)
+
+        # BOTAO LOGIN
         cls.button_login_e = CTkButton(
             master=frame,
             text="Login",
@@ -264,7 +265,7 @@ class RegisterView:
             font=("Verdana", 14),
             text_color="#ffffff",
             width=120,
-        ).pack(pady=(0), side = "right", padx=25)
+        ).pack(pady=(0), side="right", padx=25)
 
     @classmethod
     def cadastrar(cls):
@@ -282,12 +283,13 @@ class RegisterView:
             # Código para cadastrar o cliente no banco de dados ou em algum sistema
 
             """
-        
+
     @classmethod
     def validar_email(cls, email):
         if "@" in email and "." in email:
             return True
         return False
-       
-if __name__ == '__main__':
-    RegisterView()   
+
+
+if __name__ == "__main__":
+    RegisterView()

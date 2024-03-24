@@ -18,12 +18,6 @@ class ProductRepository(BaseRepository[Product]):
 
     @classmethod
     def get_all(cls, session_):
-        statement = select(Product)
-        result = session_.exec(statement).all()
-        return result
-
-    @classmethod
-    def get_all_join(cls, session_):
         statement = (
             select(
                 Product.bar_cod,
@@ -36,7 +30,7 @@ class ProductRepository(BaseRepository[Product]):
             .join(Category)
             .order_by(Product.id)
         )
-        result = session_.exec(statement).all()
+        result = session_.exec(statement).mappings().alL()
         return result
 
     @classmethod

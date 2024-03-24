@@ -15,7 +15,7 @@ class BrandController(BaseController[Brand]):
 
     @classmethod
     def get_all(cls, session_):
-        pass
+        return cls.repo.get_all(session_)
 
     @classmethod
     def get_by_id(cls, entity: Brand, session_) -> Brand:
