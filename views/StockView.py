@@ -39,7 +39,7 @@ class StockView(ttk.Frame):
 
         # Title and button
         title = tk.Label(cls.main_frame, text="Stock", font=("Verdana", 20), bg="white")
-        title.pack(anchor="nw", fill=tk.NONE, padx=27, pady=29)
+        title.pack(side="left", anchor="nw", fill=tk.NONE, padx=27, pady=29)
 
         if "Create" in user_.permissions["Stock"]:
             button_add = tk.Button(
