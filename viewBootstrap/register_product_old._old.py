@@ -3,6 +3,7 @@ from tkinter import *
 import tkinter as tk
 import ttkbootstrap as ttk
 from PIL import Image, ImageTk
+from tkinter import filedialog
 from ttkbootstrap import Style
 
 PATH = Path(__file__).parent / "assets"
@@ -14,7 +15,7 @@ class InsertProduct:
     
         self.window_product()
         self.frame_photo_product()
-        #self.entrys_product()
+        self.entrys_product()
         
         # form entries
         self.name = ttk.StringVar(value="")
@@ -22,19 +23,22 @@ class InsertProduct:
         self.description = ttk.StringVar(value="")
         self.price = ttk.StringVar(value="") #Tem que mudar
         self.category = ttk.StringVar(value="")
-        self.brand = ttk.StringVar(value="")
+        self.brand = ttk.StringVar(value="")      
         
-        self.create_form_entry("Nome", self.name.get)
+        """self.create_form_entry("Nome", self.name.get)
         self.create_form_entry("Cod_Barra", self.bar_cod.get)
         self.create_form_entry("Descrição", self.description.get)
-        self.create_form_entry("Preço", self.price.get)
-        #self.create_form_entry("brand", self.brand.get)
-        #self.create_combobox("category", self.category.get)
+        self.create_form_entry("Preço", self.price.get)"""
+        
+        self.create_form_entry("Nome", self.name, "text")
+        self.create_form_entry("Cod_Barra", self.bar_cod, "text")
+        self.create_form_entry("Descrição", self.description, "text")
+        self.create_form_entry("Preço", self.price, "double")
+        
         self.create_combobox_category()
         self.create_combobox_brand()
         self.textbox_description()
         self.create_buttonbox()
-        
         self.root.mainloop()
         
         
@@ -48,21 +52,27 @@ class InsertProduct:
     def frame_photo_product(cls):
         # Frame para dividir a tela. 
         prod_frame = ttk.Frame(cls.root, width=300, height=1000)
-        prod_frame.pack(fill=tk.Y, side=LEFT)
+        prod_frame.pack(fill=Y, side=LEFT)
     
         style = ttk.Style()
         style.configure("Custom.TFrame", background=style.colors.primary)
         style.configure("Custom.Button", background=style.colors.info, )
         prod_frame.config(style="Custom.TFrame", )
         
-        button_insert_img = ttk.Button(
-        prod_frame,
-        text="ADICIONE A IMAGEM",
-        cursor="hand2",
-        )
-        button_insert_img.place(relx=.3, rely=.5)
+        img_logo = Image.open(PATH / "logo-stock-b.png")
+        cls.img_logo = ImageTk.PhotoImage(img_logo.resize((250, 250)))
+        cls.button1 = Label(
+            prod_frame, width=250, height=250, image=cls.img_logo, text="", pady=40
+        ).place(relx=.07, rely=.1)
         
-        cls.entrys_product()
+        button_insert_img = Button(
+            prod_frame,
+            text="ADICIONE A IMAGEM",
+            cursor="hand2",
+            command=cls.on_select_image, # Acrescentei
+        )
+        button_insert_img.place(relx=.2, rely=.6)
+        
         
     @classmethod
     def entrys_product(cls):
@@ -75,7 +85,7 @@ class InsertProduct:
         hdr.pack(pady=20)
         
     
-    @ classmethod    
+    """@ classmethod    
     def create_form_entry(cls, label, variable): 
         #Criar uma unica entrada no formulario
         container = ttk.Frame(cls.root)
@@ -85,7 +95,41 @@ class InsertProduct:
         lbl.pack(side=LEFT, padx=5)
 
         ent = ttk.Entry(master=container, textvariable=variable)
-        ent.pack(side=LEFT, padx=5, fill=X, expand=YES)
+        ent.pack(side=LEFT, padx=5, fill=X, expand=YES)"""
+        
+    @classmethod
+    def create_form_entry(cls, label, variable, entry_type):
+        # Criar uma unica entrada no formulario
+        container = ttk.Frame(cls.root)
+        container.pack(fill=X, expand=YES, pady=5)
+
+        lbl = ttk.Label(master=container, text=label.title(), width=10)
+        lbl.pack(side=LEFT, padx=5)
+
+        if entry_type == "image":
+            ent = ttk.Button(master=container, text="Procurar imagem", command=cls.on_select_image)
+            ent.pack(side=LEFT, padx=5, fill=X, expand=YES)
+        else:
+            ent = ttk.Entry(master=container, textvariable=variable)
+            ent.pack(side=LEFT, padx=5, fill=X, expand=YES)
+        # Create a label to display the form entry
+        label_entry = ttk.Label(master=container, text=variable.get())
+        label_entry.pack(side=LEFT, padx=5)
+        
+    @classmethod
+    def on_select_image(cls):
+        # Open a file dialog to select an image
+        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg *.png")])
+
+        # Display the selected image in the GUI
+        image = Image.open(file_path)
+        photo = ImageTk.PhotoImage(image)
+        label_image = ttk.Label(master=cls.frame_photo_product, image=photo)
+        label_image.image = photo
+        label_image.pack(fill=X, expand=YES)
+
+        # Store the image path in the class variable
+        cls.image_path = file_path
      
      
     @ classmethod
