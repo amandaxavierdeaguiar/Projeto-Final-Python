@@ -17,11 +17,20 @@ class BrandRepository(BaseRepository[Brand]):
         result = session_.exec(statement).all()
         return result
 
-    def get_by_id(self, entity: Brand, session_) -> Brand:
+    @classmethod
+    def get_by_id(cls, entity: Brand, session_) -> Brand:
         pass
 
-    def update(self, entity: Brand, session_) -> None:
+    @classmethod
+    def get_by_name(cls, name_: str, session_) -> Brand:
+        statement = select(Brand).where(Brand.name == name_)
+        result = session_.exec(statement)
+        return result
+
+    @classmethod
+    def update(cls, entity: Brand, session_) -> None:
         pass
 
-    def delete(self, entity: Brand, session_) -> None:
+    @classmethod
+    def delete(cls, entity: Brand, session_) -> None:
         pass

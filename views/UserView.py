@@ -7,7 +7,6 @@ from controllers.UserController import UserController
 from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
 from sqlmodel import Session
-from customtkinter import *
 
 
 class UserView(ttk.Frame):
@@ -85,6 +84,7 @@ class UserView(ttk.Frame):
             stripecolor=("#f1f1f1", None),
             height=32,
             paginated=True,
+            pagesize=32,
         )
         dt.pack(fill=tk.BOTH, expand=YES, padx=35, pady=35)
 

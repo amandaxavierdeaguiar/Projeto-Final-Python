@@ -12,22 +12,22 @@ class UserAuthentication:
     password: str
     is_login: bool = False
     session: Session = get_session()
-    permissions: Dict
+    permissions: Dict = {}
 
     @classmethod
     def check(cls, login_, password_):
         repo: UserRepository = UserRepository()
         u = repo.get_by_email(login_, cls.session)
-        cls.permissions = cls.give_permissions(u)
         if (
-            password_ is not None
-            and login_ is not None
-            and u is not None
-            and password_ != u.password
+                password_ is not None
+                and login_ is not None
+                and u is not None
+                and password_ != u.password
         ):
             cls.is_login = False
             raise ValidationError("Login Incorreto")
         cls.is_login = True
+        cls.permissions = cls.give_permissions(u)
 
     @classmethod
     def give_permissions(cls, user):

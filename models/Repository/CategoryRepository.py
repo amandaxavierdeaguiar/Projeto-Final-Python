@@ -1,10 +1,13 @@
 from sqlmodel import select
 
 from models.Category import Category
-from models.Repository.BaseRepository import BaseRepository
+from models.Repository.BaseRepository import BaseRepository, T
 
 
 class CategoryRepository(BaseRepository[Category]):
+    def get_by_id(self, entity: T, session_) -> T:
+        pass
+
     def __init__(self):
         super().__init__()
 
@@ -21,14 +24,14 @@ class CategoryRepository(BaseRepository[Category]):
         return result
 
     @classmethod
-    def get_by_id(cls, entity: Category, session_) -> Category:
-        statement = select(entity).where(entity.id == entity.id)
+    def get_by_name(cls, name_: str, session_) -> Category:
+        statement = select(Category).where(Category.name == name_)
         result = session_.exec(statement)
         return result
 
     @classmethod
     def update(cls, entity: Category, session_) -> None:
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(Category).where(Category.id == entity.id)
         exec_result = session_.exec(statement)
         result = exec_result.one()
 
@@ -39,14 +42,14 @@ class CategoryRepository(BaseRepository[Category]):
 
     @classmethod
     def delete(cls, entity: Category, session_) -> None:
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(Category).where(Category.id == entity.id)
         exec_result = session_.exec(statement)
         result = exec_result.one()
 
         session_.delete(result)
         session_.commit()
 
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(Category).where(Category.id == entity.id)
         exec_confirm = session_.exec(statement)
         result_confirm = exec_confirm.first()
 

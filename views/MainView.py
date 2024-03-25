@@ -39,7 +39,7 @@ class MainView(ttk.Frame):
         ttk.Style("cosmo").configure("TButton", font="TkFixedFont 12")
 
     def frames_nav(self):
-        self.menu_frame = ttk.Frame(self.root, width=170, height=30, style=PRIMARY)
+        self.menu_frame = ttk.Frame(self.root, width=70, height=30, style=PRIMARY)
         self.menu_frame.pack(fill=BOTH, side="left", expand=False)
         self.stock = StockView(self.root, self.user)
         self.main_frame = self.stock.get_frame(self.user)

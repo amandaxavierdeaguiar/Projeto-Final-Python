@@ -1,4 +1,4 @@
-from controllers.BaseController import BaseController
+from controllers.BaseController import BaseController, T
 from models.Category import Category
 from models.Repository.CategoryRepository import CategoryRepository
 
@@ -17,9 +17,12 @@ class CategoryController(BaseController[Category]):
     def get_all(cls, session_):
         return cls.repo.get_all(session_)
 
-    @classmethod
-    def get_by_id(cls, entity: Category, session_) -> Category:
+    def get_by_id(self, entity: T, session_) -> T:
         pass
+
+    @classmethod
+    def get_by_name(cls, name: str, session_) -> Category:
+        return cls.repo.get_by_name(name, session_)
 
     @classmethod
     def update(cls, entity: Category, session_) -> None:

@@ -23,3 +23,14 @@ class Product(SQLModel, table=True):
 
         Podemos deixar supplier aqui ou criar class Brand onde nela e que tem o supplier e aqui temos o brand_id    
     """
+
+    @classmethod
+    def create(cls, bar_code_, name_, photo_, description_, price_, brand_id_, category_id_):
+        cls.bar_cod = bar_code_
+        cls.name = name_
+        cls.photo = photo_
+        cls.description = description_
+        cls.price = price_
+        cls.brand_id = brand_id_
+        cls.category_id = category_id_
+        return cls

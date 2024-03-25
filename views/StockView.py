@@ -86,6 +86,7 @@ class StockView(ttk.Frame):
             stripecolor=("#f1f1f1", None),
             height=32,
             paginated=True,
+            pagesize=32,
         )
         dt.pack(fill=tk.BOTH, expand=YES, padx=35, pady=35)
 

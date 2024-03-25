@@ -22,6 +22,10 @@ class BrandController(BaseController[Brand]):
         pass
 
     @classmethod
+    def get_by_name(cls, name: str, session_) -> Brand:
+        return cls.repo.get_by_name(name, session_)
+
+    @classmethod
     def update(cls, entity: Brand, session_) -> None:
         pass
 
