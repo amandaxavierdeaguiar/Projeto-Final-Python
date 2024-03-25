@@ -40,9 +40,9 @@ class RegistrationProduct:
     # price
     price: ttk.DoubleVar
     # category
-    category: ttk.StringVar
+    category: ttk.IntVar
     # Brand
-    brand: ttk.StringVar
+    brand: ttk.IntVar
 
     def __init__(self, user_, product_select=None):
         super().__init__()
@@ -71,14 +71,17 @@ class RegistrationProduct:
         description_temp = "" if product_select is None else product_select["Descrição"]
         self.description: ttk.StringVar = ttk.StringVar(value=description_temp)
         # price
-        price_temp = "" if product_select is None else product_select["Preço"]
-        self.price: ttk.DoubleVar = ttk.DoubleVar(value=float(price_temp))
+        price_temp = None if product_select is None else float(product_select["Preço"])
+        self.price: ttk.DoubleVar = ttk.DoubleVar(value=price_temp)
         # category
-        category_temp = "" if product_select is None else product_select["Categoria"]
-        self.category: ttk.StringVar = ttk.StringVar(value=category_temp)
+        category_temp = (
+            None if product_select is None else int(product_select["Categoria_id"])
+        )
+        self.category: ttk.IntVar = ttk.IntVar(value=category_temp)
+
         # Brand
-        brand_temp = "" if product_select is None else product_select["Marca"]
-        self.brand: ttk.StringVar = ttk.StringVar(value=brand_temp)
+        brand_temp = None if product_select is None else int(product_select["Marca_id"])
+        self.brand: ttk.IntVar = ttk.IntVar(value=brand_temp)
 
         self.name_ent = self.create_form_entry("Nome", self.name, "text")
         self.price_ent = self.create_form_entry("Preço", self.price, "double")
@@ -88,6 +91,8 @@ class RegistrationProduct:
         self.brand_ent = self.create_combobox(
             "Marca:", self.ctrl_brand.get_all(self.session), self.brand
         )
+        self.category_ent.current(category_temp)
+        self.brand_ent.current(brand_temp)
         self.description_ent = self.textbox_description()
         self.create_buttonbox()
         self.root.mainloop()

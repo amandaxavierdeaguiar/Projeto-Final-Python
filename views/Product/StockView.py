@@ -88,6 +88,8 @@ class StockView(ttk.Frame):
             {"text": "Quantidade", "stretch": True},
             {"text": "Descrição", "stretch": True},
             {"text": "Foto", "stretch": True},
+            {"text": "Categoria_id", "stretch": True},
+            {"text": "Marca_id", "stretch": True},
         ]
         rowdata = []
         for row in table_data:
