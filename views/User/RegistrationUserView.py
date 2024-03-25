@@ -1,10 +1,9 @@
-import hashlib
+from customtkinter import *
+from sqlmodel import Session
 
+from controllers.UserController import UserController
 from models.User import User
 from models.db.db_conection import get_session
-from controllers.UserController import UserController
-from sqlmodel import Session
-from customtkinter import *
 
 
 class RegistrationView:

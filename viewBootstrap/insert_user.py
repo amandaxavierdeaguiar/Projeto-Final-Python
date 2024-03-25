@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import *
 import tkinter as tk
+from tkinter import messagebox
 import ttkbootstrap as ttk
 from ttkbootstrap import Style
 from PIL import Image, ImageTk
@@ -25,8 +26,9 @@ class InsertUser:
         self.create_form_user("Nome:", self.name.get())
         self.create_form_user("Login:", self.login.get())
         self.create_form_user("Password:", self.password.get())
-        self.create_form_user("Tipo de Acesso:", self.typeAcess.get())
-
+        
+        self.password_entry()
+        self.combobox_type_user()
         self.create_buttonbox()
         #self.root.configure(background='blue')
         self.root.mainloop()
@@ -51,9 +53,9 @@ class InsertUser:
         
     
         img_user = Image.open(PATH / "insert_user_bg2.png")
-        cls.img_user = ImageTk.PhotoImage(img_user.resize((250, 250)))
+        cls.img_user = ImageTk.PhotoImage(img_user.resize((350, 350)))
         cls.button1 = Label(
-            prod_frame_description, width=250, height=250, image=cls.img_user, text="", borderwidth= 0
+            prod_frame_description, width=250, height=250, image=cls.img_user, text="", borderwidth= 0, highlightthickness=0, bd=0
         ).place(relx=.08, rely=.3)
         
         return prod_frame_description
@@ -86,7 +88,7 @@ class InsertUser:
         lbl.pack(side=LEFT, padx=5)
 
         ent = Entry(master=container, textvariable=variable, bg="white", relief="solid", borderwidth= 0.5)
-        #ent.pack(padx=5, pady=5)
+
         ent.pack(side=LEFT, padx=20, fill=X, expand=YES)
         
         return ent
@@ -104,7 +106,7 @@ class InsertUser:
             bootstyle='SUCCESS',
             width=6,
         )
-        sub_btn.pack(side=RIGHT, padx=5)
+        sub_btn.pack(side=RIGHT, padx=20)
         sub_btn.focus_set()
 
         cnl_btn = ttk.Button(
@@ -116,10 +118,41 @@ class InsertUser:
         )
         cnl_btn.pack(side=RIGHT, padx=5)
         
+
+    """ Colocar a senha """
+    @classmethod
+    def password_entry(cls):
+        frame_password = ttk.Frame(cls.root)
+        frame_password.pack(fill=X, expand=YES, pady=5)
+        
+        lbl_password = ttk.Label(frame_password, text="Password", width=13)
+        lbl_password.pack(side=LEFT, padx=5)
+         
+        password_entry_ = ttk.Entry(frame_password, show="*")
+        password_entry_.pack(side=LEFT, padx=20, fill=X, expand=YES)
+        
+        lbl_password_repeat = ttk.Label(frame_password, text="Digite novamente:", width=16)
+        lbl_password_repeat.pack(side=LEFT, padx=5)
+        
+        repeat_password_entry = ttk.Entry(frame_password)
+        repeat_password_entry.pack(side=LEFT, padx=20, fill=X, expand=YES)
     
+     
+    """ TIPO DE ACESSO - FAZER COMBOBOX Admin = "Admin" | SubAdmin = "Sub_Admin" | User = "User"""
+    @classmethod
+    def combobox_type_user(cls):
+        frame_combobox = ttk.Frame(cls.root)
+        frame_combobox.pack(fill=X, expand=YES, pady=5)
         
+        lbl_combobox = ttk.Label(frame_combobox, text="Tipo de Acesso", width=13)
+        lbl_combobox.pack(side=LEFT, padx=5)
+         
+        type_acess = ttk.Combobox(frame_combobox, state="readonly", values=["Admin", "Sub_Admin", "User"])
+        type_acess.current(0)
+        type_acess.pack(side=LEFT, padx=20, fill=X, expand=YES)
         
-        
+        return type_acess
+
     @classmethod    
     def on_submit(cls):
         #IMPRIME CONTEUDO E RETORNA OS VALORES
@@ -130,8 +163,6 @@ class InsertUser:
         
         return cls.name.get(), cls.login.get(), cls.password.get(), cls.typeAcess.get()
     
-        
-
     
     @classmethod    
     def on_cancel(cls):

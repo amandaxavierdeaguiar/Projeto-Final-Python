@@ -1,11 +1,13 @@
 import tkinter as tk
+
 import ttkbootstrap as ttk
+from sqlmodel import Session
 from ttkbootstrap.constants import *
 from ttkbootstrap.tableview import Tableview
+
+from controllers.SupplierController import SupplierController
 from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
-from sqlmodel import Session
-from controllers.SupplierController import SupplierController
 
 
 class SupplierView(ttk.Frame):

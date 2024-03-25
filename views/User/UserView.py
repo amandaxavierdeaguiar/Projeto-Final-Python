@@ -1,12 +1,13 @@
 import tkinter as tk
+
 import ttkbootstrap as ttk
+from sqlmodel import Session
 from ttkbootstrap.constants import *
 from ttkbootstrap.tableview import Tableview
 
 from controllers.UserController import UserController
 from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
-from sqlmodel import Session
 
 
 class UserView(ttk.Frame):

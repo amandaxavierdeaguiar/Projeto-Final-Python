@@ -30,6 +30,8 @@ class StocksRepository(BaseRepository[Stock]):
                 Category.name,
                 Product.price,
                 Stock.quantity,
+                Product.description,
+                Product.photo,
             )
             .join(Brand)
             .join(Category)

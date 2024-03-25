@@ -7,9 +7,9 @@ from PIL import ImageTk, Image
 from ttkbootstrap.constants import *
 
 from models.UserAuthentication import UserAuthentication
-from views.StockView import StockView
-from views.SupplierView import SupplierView
-from views.UserView import UserView
+from views.Product.StockView import StockView
+from views.Supplier.SupplierView import SupplierView
+from views.User.UserView import UserView
 
 PATH = Path(__file__).parent / "assets"
 
@@ -39,8 +39,8 @@ class MainView(ttk.Frame):
         ttk.Style("cosmo").configure("TButton", font="TkFixedFont 12")
 
     def frames_nav(self):
-        self.menu_frame = ttk.Frame(self.root, width=70, height=30, style=PRIMARY)
-        self.menu_frame.pack(fill=BOTH, side="left", expand=False)
+        self.menu_frame = ttk.Frame(self.root, width=50, height=30, style=PRIMARY)
+        self.menu_frame.pack(fill=Y, side="left", expand=False)
         self.stock = StockView(self.root, self.user)
         self.main_frame = self.stock.get_frame(self.user)
         self.main_frame.pack(fill=BOTH, side="left", expand=True)
@@ -67,7 +67,7 @@ class MainView(ttk.Frame):
         else:
             btn_temp = ttk.Button(
                 master=frame_,
-                width=30,
+                width=25,
                 # height=75,
                 image=img_temp,
                 compound=tk.LEFT,
@@ -81,7 +81,7 @@ class MainView(ttk.Frame):
             return btn_temp
 
     def menu(self):
-        img_logo = Image.open(PATH / "logo-stock-b.png")
+        img_logo = Image.open(PATH / "icons/logo-stock-b.png")
         self.img_logo = ImageTk.PhotoImage(img_logo.resize((100, 100)))
         self.button1 = Button(
             self.menu_frame,
@@ -93,23 +93,28 @@ class MainView(ttk.Frame):
         self.button1.grid(column=0, row=0)
 
         self.button2 = self.create_button(
-            self.menu_frame, "list.png", "Stock", self.call_stock, 1, False
+            self.menu_frame, "icons/list.png", "Stock", self.call_stock, 1, False
         )
         self.button3 = self.create_button(
-            self.menu_frame, "supplier.png", "Fornecedor", self.call_supplier, 2, False
+            self.menu_frame,
+            "icons/supplier.png",
+            "Fornecedor",
+            self.call_supplier,
+            2,
+            False,
         )
 
         if "Read" in self.user.permissions["User"]:
             self.button4 = self.create_button(
-                self.menu_frame, "user.png", "Users", self.call_user, 3, False
+                self.menu_frame, "icons/user.png", "Users", self.call_user, 3, False
             )
         else:
             self.button4 = self.create_button(
-                self.menu_frame, "user.png", "Users", self.call_user, 3, True
+                self.menu_frame, "icons/user.png", "Users", self.call_user, 3, True
             )
 
         self.button5 = self.create_button(
-            self.menu_frame, "exit.png", "Logout", self.call_logout, 5, False
+            self.menu_frame, "icons/exit.png", "Logout", self.call_logout, 5, False
         )
 
     def call_logout(self):

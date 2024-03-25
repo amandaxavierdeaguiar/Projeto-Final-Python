@@ -1,10 +1,7 @@
 from pathlib import Path
 
-from controllers.UserController import UserController
-from models.Enums.TypeAccess import TypeAccess
-from models.User import User
-from views.BaseWindow import BaseWindow
-from views.LoginView import LoginView
+from views.Base.BaseWindow import BaseWindow
+from views.Login.LoginView import LoginView
 
 PATH = Path(__file__).parent / "views/assets"
 
@@ -12,7 +9,7 @@ PATH = Path(__file__).parent / "views/assets"
 def main():
     app = BaseWindow(
         title="Stock Management",
-        iconphoto=f"{PATH}/logo-stock.png",
+        iconphoto=f"{PATH}/icons/logo-stock.png",
         themename="cosmo",
         background="#EBEBEB",
         resizable=(True, True),

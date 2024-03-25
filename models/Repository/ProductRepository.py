@@ -25,6 +25,8 @@ class ProductRepository(BaseRepository[Product]):
                 Brand.name,
                 Category.name,
                 Product.price,
+                Product.description,
+                Product.photo,
             )
             .join(Brand)
             .join(Category)
