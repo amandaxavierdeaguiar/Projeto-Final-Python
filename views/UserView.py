@@ -2,16 +2,17 @@ import tkinter as tk
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 from ttkbootstrap.tableview import Tableview
+
+from controllers.UserController import UserController
 from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
 from sqlmodel import Session
 from customtkinter import *
-from controllers.SupplierController import SupplierController
 
 
-class SupplierView(ttk.Frame):
+class UserView(ttk.Frame):
     root = None
-    ctrl_supplier: SupplierController = SupplierController()
+    ctrl_user: UserController = UserController()
     user: UserAuthentication
     session: Session = get_session()
     main_frame: ttk.Frame
@@ -36,7 +37,7 @@ class SupplierView(ttk.Frame):
         )
         title.pack(side="left", anchor="nw", fill=tk.NONE, padx=27, pady=29)
 
-        if "Create" in user_.permissions["Supplier"]:
+        if "Create" in user_.permissions["User"]:
             button_add = tk.Button(
                 container,
                 font=("Verdana", 10),
@@ -65,12 +66,11 @@ class SupplierView(ttk.Frame):
         container = ttk.Frame(master=cls.main_frame)
         container.pack(fill=tk.BOTH, expand=YES, pady=5)
         coldata = [
-            {"text": "Fornecedor", "stretch": True},
-            {"text": "Morada", "stretch": True},
+            {"text": "Nome", "stretch": True},
             {"text": "Email", "stretch": True},
-            {"text": "Telefone", "stretch": True},
+            {"text": "Tipo de Acesso", "stretch": True},
         ]
-        table_data = cls.ctrl_supplier.get_all(cls.session)
+        table_data = cls.ctrl_user.get_all(cls.session)
         rowdata = []
         for row in table_data:
             rowdata.append(row.values())

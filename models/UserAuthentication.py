@@ -33,19 +33,19 @@ class UserAuthentication:
     def give_permissions(cls, user):
         roles: Dict = {
             "Admin": {
-                "Users": ["Create", "Read", "Update", "Delete"],
+                "User": ["Create", "Read", "Update", "Delete"],
                 "Stock": ["Create", "Read", "Update", "Delete"],
                 "Supplier": ["Create", "Read", "Update", "Delete"],
                 "Product": ["Create", "Read", "Update", "Delete"],
             },
             "Sub_Admin": {
-                "Users": ["Create", "Read", "Update"],
+                "User": [],
                 "Stock": ["Create", "Read", "Update"],
                 "Supplier": ["Create", "Read", "Update"],
                 "Product": ["Create", "Read", "Update"],
             },
             "User": {
-                "Users": [],
+                "User": [],
                 "Stock": ["Read"],
                 "Supplier": ["Read"],
                 "Product": ["Read"],

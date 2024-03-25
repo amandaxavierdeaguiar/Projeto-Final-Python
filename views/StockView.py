@@ -1,9 +1,6 @@
 import tkinter as tk
-from tkinter import *
 import ttkbootstrap as ttk
-from PIL import Image, ImageTk
 from sqlmodel import Session
-from ttkbootstrap import Style
 from ttkbootstrap.constants import *
 from ttkbootstrap.tableview import Tableview
 
@@ -17,7 +14,7 @@ class StockView(ttk.Frame):
     ctrl_stock: StockController = StockController()
     user: UserAuthentication
     session: Session = get_session()
-    main_frame: tk.Frame
+    main_frame: ttk.Frame
     dt: Tableview
 
     def __init__(self, master_, user_):
@@ -26,24 +23,20 @@ class StockView(ttk.Frame):
         self.user = user_
 
     @classmethod
-    def styleMenu(cls, root):
-        root.style = Style()
-        root.style.configure(
-            "My.TButton", cursor="hand2", compound=tk.LEFT, font=("Verdana", 10)
-        )
-
-    @classmethod
     def get_frame(cls, user_):
-        cls.main_frame = tk.Frame(cls.root, width=400, height=100, bg="white")
+        cls.main_frame = ttk.Frame(cls.root, width=400, height=100)
         cls.main_frame.pack(fill=X)
 
+        container = ttk.Frame(master=cls.main_frame, height=20)
+        container.pack(fill=X, expand=NO, pady=5)
+
         # Title and button
-        title = tk.Label(cls.main_frame, text="Stock", font=("Verdana", 20), bg="white")
-        title.pack(anchor="nw", fill=tk.NONE, padx=27, pady=29)
+        title = tk.Label(container, text="Stock", font=("Verdana", 20), bg="black")
+        title.pack(side="left", anchor="nw", fill=tk.NONE, padx=27, pady=29)
 
         if "Create" in user_.permissions["Stock"]:
             button_add = tk.Button(
-                cls.main_frame,
+                container,
                 font=("Verdana", 10),
                 text="+ Produtos",
                 bg="blue",
@@ -53,7 +46,7 @@ class StockView(ttk.Frame):
             button_add.pack(anchor="ne", fill=tk.NONE, padx=27, pady=29)
         else:
             button_add = tk.Button(
-                cls.main_frame,
+                container,
                 font=("Verdana", 10),
                 text="+ Produtos",
                 bg="blue",
@@ -67,6 +60,9 @@ class StockView(ttk.Frame):
 
     @classmethod
     def table(cls):
+        container = ttk.Frame(master=cls.main_frame)
+        container.pack(fill=tk.BOTH, expand=YES, pady=5)
+
         coldata = [
             {"text": "Bar Code", "stretch": True},
             {"text": "Produto", "stretch": True},
@@ -81,13 +77,15 @@ class StockView(ttk.Frame):
             rowdata.append(row.values())
 
         dt = Tableview(
-            master=cls.root,
+            master=container,
             coldata=coldata,
             rowdata=rowdata,
             autofit=True,
             searchable=True,
             bootstyle=PRIMARY,
             stripecolor=("#f1f1f1", None),
+            height=32,
+            paginated=True,
         )
         dt.pack(fill=tk.BOTH, expand=YES, padx=35, pady=35)
 

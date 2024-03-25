@@ -16,8 +16,8 @@ class UserRepository(BaseRepository[User]):
 
     @classmethod
     def get_all(cls, session_):
-        statement = select(User)
-        result = session_.exec(statement).all()
+        statement = select(User.login, User.name, User.typeAccess)
+        result = session_.exec(statement).mappings().all()
         return result
 
     @classmethod

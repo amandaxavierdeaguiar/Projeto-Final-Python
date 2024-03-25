@@ -16,6 +16,7 @@ PATH = Path(__file__).parent / "assets"
 
 
 class LoginView(ttk.Frame):
+    user: UserAuthentication
     login_entry_var: ttk.StringVar
     password_entry_var: ttk.StringVar
     login_entry: Entry
@@ -107,11 +108,12 @@ class LoginView(ttk.Frame):
         try:
             email = self.login_entry.get()
             password = self.hash_password(self.password_entry.get())
-            u = UserAuthentication()
-            u.check(email, password)
-            if u.is_login:
+            self.user = UserAuthentication()
+            self.user.check(email, password)
+            if self.user.is_login:
                 self.destroy()
-                MainView(self.root, u)
+                self.wait_window(MainView(self.root, self.user))
+                # MainView(self.root, self.user)
         except ValidationError as e:
             print(e)
 
