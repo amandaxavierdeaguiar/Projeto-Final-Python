@@ -31,12 +31,12 @@ class StockView(ttk.Frame):
         cls.main_frame = ttk.Frame(cls.root, width=400, height=100)
         cls.main_frame.pack(fill=X)
 
-        container = ttk.Frame(master=cls.main_frame, height=20)
-        container.pack(fill=X, expand=NO, pady=5)
+        container = ttk.Frame(master=cls.main_frame, height=10)
+        container.pack(fill=X, expand=YES, pady=5)
 
         # Title and button
-        title = tk.Label(container, text="Stock", font=("Verdana", 20), bg="black")
-        title.pack(side="left", anchor="nw", fill=tk.NONE, padx=27, pady=29)
+        title = tk.Label(container, text="Stock", font=("Verdana", 20))
+        title.pack(side="left", padx=10)
 
         if "Create" in user_.permissions["Stock"]:
             cls.button_add = tk.Button(
@@ -48,7 +48,7 @@ class StockView(ttk.Frame):
                 command=cls.new_product,
                 cursor="hand2",
             )
-            cls.button_add.pack(anchor="ne", fill=tk.NONE, padx=27, pady=29)
+            cls.button_add.pack(side=RIGHT, padx=15)
         else:
             cls.button_add = tk.Button(
                 container,
@@ -59,7 +59,7 @@ class StockView(ttk.Frame):
                 cursor="hand2",
                 state="disabled",
             )
-            cls.button_add.pack(anchor="ne", fill=tk.NONE, padx=27, pady=29)
+            cls.button_add.pack(side=RIGHT, padx=5)
         button_feature = tk.Button(
             container,
             font=("Verdana", 10),

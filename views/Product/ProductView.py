@@ -50,7 +50,7 @@ class RegistrationProduct(ttk.Frame):
             title="Inserir Produto",
             themename="cosmo",
             iconphoto=f"{PATH}/icons/logo-stock.png",
-            background="#EBEBEB",
+            # background="#EBEBEB",
             size=[1000, 650],
             resizable=(True, True),
             minsize=[756, 545],
