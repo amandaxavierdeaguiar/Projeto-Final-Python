@@ -8,7 +8,7 @@ from sqlmodel import Session
 from controllers.SupplierController import SupplierController
 
 
-class SupplierView(ttk.Frame):
+class TableSupplierView(ttk.Frame):
     root = None
     ctrl_supplier: SupplierController = SupplierController()
     user: UserAuthentication

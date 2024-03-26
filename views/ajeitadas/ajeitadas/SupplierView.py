@@ -1,7 +1,6 @@
 import tkinter as tk
 
 import ttkbootstrap as ttk
-from customtkinter import *
 from sqlmodel import Session
 from ttkbootstrap.constants import *
 from ttkbootstrap.tableview import Tableview

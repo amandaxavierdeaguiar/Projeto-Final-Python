@@ -12,7 +12,6 @@ class DescriptionProduct:
     root = ttk.Window(themename="cosmo")
 
     def __init__(self):
-
         super().__init__()
 
         self.window_description()
@@ -44,37 +43,34 @@ class DescriptionProduct:
         cls.root.title("Descrição do Produto")
         cls.root.geometry("1000x650")
         cls.root.minsize(width=756, height=545)
-        
-        
 
     @classmethod
     def frame_photo_description(cls):
         # Frame para dividir a tela.
         prod_frame_description = ttk.Frame(cls.root, width=300, height=1000)
         prod_frame_description.pack(fill=tk.Y, side=LEFT)
-        
+
         division_frame = ttk.Frame(cls.root, width=3, height=1000)
         division_frame.pack(fill=tk.Y, side=LEFT)
 
         style = ttk.Style()
         style.configure(
-            "Custom.TFrame",
-            background=style.colors.primary,
+                "Custom.TFrame",
+                background=style.colors.primary,
         )
 
         """prod_frame_description.config(
             style="Custom.TFrame",
         )"""
-        
+
         division_frame.config(
-            style="Custom.TFrame",
+                style="Custom.TFrame",
         )
-        
 
         img_logo = Image.open(PATH / "products/alho_frances.png")
         cls.img_logo = ImageTk.PhotoImage(img_logo.resize((250, 250)))
         cls.button1 = Label(
-            prod_frame_description, width=250, height=250, image=cls.img_logo, text=""
+                prod_frame_description, width=250, height=250, image=cls.img_logo, text=""
         ).place(relx=0.08, rely=0.3)
 
         return prod_frame_description
@@ -90,11 +86,11 @@ class DescriptionProduct:
         hdr = ttk.Label(register_prod, text=hdr_txt, width=50, font=("Verdana", 18))
         style = ttk.Style()
         style.configure(
-            "Custom.TLabel",
-            foreground=style.colors.primary,
+                "Custom.TLabel",
+                foreground=style.colors.primary,
         )
         hdr.config(
-            style="Custom.TLabel",
+                style="Custom.TLabel",
         )
 
         hdr.pack(pady=20)
@@ -109,12 +105,12 @@ class DescriptionProduct:
         lbl.pack(side=LEFT, padx=5)
 
         ent = Entry(
-            master=container,
-            textvariable=variable,
-            bg="white",
-            relief="solid",
-            borderwidth=0.5,
-            state=DISABLED,
+                master=container,
+                textvariable=variable,
+                bg="white",
+                relief="solid",
+                borderwidth=0.5,
+                state=DISABLED,
         )
         # ent.pack(padx=5, pady=5)
         ent.pack(side=LEFT, padx=5, fill=X, expand=YES)
@@ -128,21 +124,21 @@ class DescriptionProduct:
         container.pack(fill=X, expand=YES, pady=(15, 10))
 
         sub_btn = ttk.Button(
-            master=container,
-            text="Submit",
-            command=cls.on_submit,
-            bootstyle="SUCCESS",
-            width=6,
+                master=container,
+                text="Submit",
+                command=cls.on_submit,
+                bootstyle="SUCCESS",
+                width=6,
         )
         sub_btn.pack(side=RIGHT, padx=5)
         sub_btn.focus_set()
 
         cnl_btn = ttk.Button(
-            master=container,
-            text="Cancel",
-            command=cls.on_cancel,
-            bootstyle="DANGER",
-            width=6,
+                master=container,
+                text="Cancel",
+                command=cls.on_cancel,
+                bootstyle="DANGER",
+                width=6,
         )
         cnl_btn.pack(side=RIGHT, padx=5)
 
@@ -155,12 +151,12 @@ class DescriptionProduct:
         lbl.pack(side=LEFT, padx=5)
 
         ent_description = ttk.ScrolledText(
-            master=container,
-            wrap=WORD,
-            height=5,
-            state=DISABLED,
-            relief="solid",
-            borderwidth=3,
+                master=container,
+                wrap=WORD,
+                height=5,
+                state=DISABLED,
+                relief="solid",
+                borderwidth=3,
         )
         ent_description.pack(side=LEFT, padx=5, fill=X, expand=YES)
 

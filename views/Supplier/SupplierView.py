@@ -9,14 +9,15 @@ from PIL import Image, ImageTk
 PATH = Path(__file__).parent.parent.parent / "assets"
 
 
-class InsertSupplier:
-    root = ttk.Window(themename="cosmo")
+class SupplierView(ttk.Frame):
+    root = None
+    button1: Label
+    img_supplier: ImageTk.PhotoImage
 
-    def __init__(self):
-        super().__init__()
-
-        self.window_supplier()
-        self.frame_photo_supplier()
+    def __init__(self, master_, user_):
+        super().__init__(master_, padding=(10, 5))
+        self.root = master_
+        self.get_frame()
         self.entrys_supplier()
 
         # form entries
@@ -32,16 +33,9 @@ class InsertSupplier:
 
         self.create_buttonbox()
         # self.root.configure(background='blue')
-        self.root.mainloop()
 
     @classmethod
-    def window_supplier(cls):
-        cls.root.title("Inserir Fornecedores")
-        cls.root.geometry('1000x650')
-        cls.root.minsize(width=756, height=545)
-
-    @classmethod
-    def frame_photo_supplier(cls):
+    def get_frame(cls, user_):
         # Frame para dividir a tela. 
         prod_frame_description = ttk.Frame(cls.root, width=300, height=1000)
         prod_frame_description.pack(fill=tk.Y, side=LEFT)
@@ -56,8 +50,8 @@ class InsertSupplier:
         cls.button1 = Label(
                 prod_frame_description, width=250, height=250, image=cls.img_supplier, text="", borderwidth=0,
                 highlightthickness=0, bd=0
-        ).place(relx=.08, rely=.3)
-
+        )
+        cls.button1.place(relx=.08, rely=.3)
         return prod_frame_description
 
     @classmethod
@@ -134,21 +128,9 @@ class InsertSupplier:
     @classmethod
     def on_submit(cls):
         # IMPRIME CONTEUDO E RETORNA OS VALORES
-        print("Nome:", cls.name.get())
-        print("Endereço:", cls.address.get())
-        print("Telefone:", cls.phone.get())
-        print("E-mail:", cls.email.get())
-
-        return cls.address.get(), cls.name.get(), cls.phone.get(), cls.email.get()
+        pass
 
     @classmethod
-    def on_cancel(self):
+    def on_cancel(cls):
         # Cancela e sai da app
-        self.quit()
-
-
-if __name__ == '__main__':
-    inicio = InsertSupplier()
-    # Test code
-
-    inicio.root.mainloop()
+        cls.quit()

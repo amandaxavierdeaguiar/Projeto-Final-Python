@@ -8,13 +8,13 @@ from ttkbootstrap.tableview import Tableview
 from controllers.StockController import StockController
 from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
-from views.Product.RegistrationProduct import RegistrationProduct
+from views.Product.ProductView import ProductView
 
 
-class StockView(ttk.Frame):
+class TableStockView(ttk.Frame):
     root = None
     ctrl_stock: StockController = StockController()
-    reg_product: RegistrationProduct
+    reg_product: ProductView
     user: UserAuthentication
     session: Session = get_session()
     main_frame: ttk.Frame

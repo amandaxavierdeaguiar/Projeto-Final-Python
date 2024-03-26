@@ -9,7 +9,7 @@ from models.db.db_conection import get_session
 from sqlmodel import Session
 
 
-class UserView(ttk.Frame):
+class TableUserView(ttk.Frame):
     root = None
     ctrl_user: UserController = UserController()
     user: UserAuthentication

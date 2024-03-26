@@ -5,7 +5,7 @@ from tkinter import *
 from tkinter import PhotoImage
 from tkinter.ttk import Label
 from PIL import Image, ImageTk
-#from ttkbootstrap import Style
+# from ttkbootstrap import Style
 
 import ttkbootstrap as ttk
 from pydantic import ValidationError
@@ -31,11 +31,11 @@ class LoginView(ttk.Frame):
         self.root = master
         super().__init__(master, padding=(10, 5))
         self.pack(fill=BOTH, expand=YES)
-        
-        #colocando a cor no fundo
+
+        # colocando a cor no fundo
         style = ttk.Style()
         style.configure("Custom.TFrame", background=style.colors.primary, )
-        
+
         self.config(style="Custom.TFrame")
 
         # form variables
@@ -49,39 +49,37 @@ class LoginView(ttk.Frame):
         self.create_form_entry("Password", self.password_entry_var)
         self.create_buttonbox()
 
-
-    def create_frame(self): 
+    def create_frame(self):
         """self.login_frame = Frame(
             self, width=600, height=400, pady=50, padx=50, 
         )#, background="white"""
         self.login_frame = Frame(
-            self, width=600, height=400, pady=10, padx=30, 
-        )#, background="white"
-        
+                self, width=600, height=400, pady=10, padx=30,
+        )  # , background="white"
+
         # self.login_frame.configure(padding=50)
         self.login_frame.pack(expand=False)
         self.login_frame.place(relx=0.5, rely=0.5, anchor="center")
-        
-        
+
         img = Image.open(PATH / "login.png")
         self.img = ImageTk.PhotoImage(img.resize((180, 180)))
         self.img_lbl = Label(master=self.login_frame, image=self.img)
         self.img_lbl.configure(
-            background="white",
-            compound="image",
-            anchor="center",
-            justify="center",
-            padding=5, #5
+                background="white",
+                compound="image",
+                anchor="center",
+                justify="center",
+                padding=5,  # 5
         )
-        #self.img_lbl.pack(side=TOP, padx=5, pady=5, fill=tk.X, expand=tk.YES)
+        # self.img_lbl.pack(side=TOP, padx=5, pady=5, fill=tk.X, expand=tk.YES)
         self.img_lbl.pack(side=TOP, padx=5, pady=5, fill=tk.X, expand=tk.YES)
 
         return self.login_frame
-    
+
     def create_form_entry(self, label, variable):
         """Create a single form entry"""
         container = Frame(master=self.login_frame)
-        #container.pack(fill=X, expand=YES, pady=5)
+        # container.pack(fill=X, expand=YES, pady=5)
         container.pack(fill=X, expand=YES, pady=5)
 
         lbl = Label(master=container, text=label.title(), width=10)
@@ -90,7 +88,7 @@ class LoginView(ttk.Frame):
 
         if label.title() == "Password":
             self.password_entry = Entry(
-                master=container, textvariable=variable, show="*"
+                    master=container, textvariable=variable, show="*"
             )
             self.password_entry.pack(side=LEFT, padx=5, fill=X, expand=YES)
         else:
@@ -103,21 +101,21 @@ class LoginView(ttk.Frame):
         container.pack(fill=tk.BOTH, expand=YES, side="bottom", pady=5)
 
         sub_btn = Button(
-            master=container,
-            text="Login",
-            cursor="hand2",
-            command=self.on_submit,
-            width=15,
+                master=container,
+                text="Login",
+                cursor="hand2",
+                command=self.on_submit,
+                width=15,
         )
         sub_btn.pack(fill=tk.BOTH, padx=5, pady=5)
         sub_btn.focus_set()
 
         cnl_btn = Button(
-            master=container,
-            text="Registar",
-            cursor="hand2",
-            command=self.on_cancel,
-            width=15,
+                master=container,
+                text="Registar",
+                cursor="hand2",
+                command=self.on_cancel,
+                width=15,
         )
         cnl_btn.pack(fill=tk.BOTH, padx=5, pady=5)
 

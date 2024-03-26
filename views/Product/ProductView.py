@@ -18,7 +18,7 @@ from views.Base.BaseWindow import BaseWindow
 PATH = Path(__file__).parent.parent / "assets"
 
 
-class RegistrationProduct(ttk.Frame):
+class ProductView(ttk.Frame):
     root: BaseWindow
     ctrl_brand: BrandController = BrandController()  # <-
     ctrl_category: CategoryController = CategoryController()  # <-
@@ -45,16 +45,8 @@ class RegistrationProduct(ttk.Frame):
     brand: ttk.IntVar
 
     def __init__(self, master_, user_, product_select=None):
-        super().__init__(master_, padding=(10, 5))
-        self.root = BaseWindow(
-            title="Inserir Produto",
-            themename="cosmo",
-            iconphoto=f"{PATH}/icons/logo-stock.png",
-            # background="#EBEBEB",
-            size=[1000, 650],
-            resizable=(True, True),
-            minsize=[756, 545],
-        )
+        self.root = master_
+        super().__init__(self.root, padding=(10, 5))
         self.user = user_
         photo_temp = (
             None
@@ -97,7 +89,8 @@ class RegistrationProduct(ttk.Frame):
         self.create_buttonbox()
         self.root.mainloop()
 
-    def frame_photo_product(self, image_path):
+    @classmethod
+    def get_frame(cls, image_path):
         style = ttk.Style()
         style.configure("Custom.TFrame", background=style.colors.primary)
         style.configure(
@@ -106,7 +99,7 @@ class RegistrationProduct(ttk.Frame):
         )
         # Frame para dividir a tela.
         img_frame = ttk.Frame(
-            self.root, width=300, height=1000, style=style.colors.primary
+            cls.root, width=300, height=1000, style=style.colors.primary
         )
 
         img_frame.pack(fill=Y, side=LEFT)
@@ -115,22 +108,21 @@ class RegistrationProduct(ttk.Frame):
                 img_frame,
                 text="ADICIONE A IMAGEM",
                 cursor="hand2",
-                command=self.on_select_image,  # Acrescentei
+                command=cls.on_select_image,  # Acrescentei
             )
             button_insert_img.place(relx=0.2, rely=0.6)
         else:
             img_path_temp = Image.open(PATH / "icons/logo-stock-b.png")
-            self.img_product = ImageTk.PhotoImage(img_path_temp.resize((250, 250)))
-            self.img_product_lbl = ttk.Label(
+            cls.img_product = ImageTk.PhotoImage(img_path_temp.resize((250, 250)))
+            cls.img_product_lbl = ttk.Label(
                 img_frame,
                 width=250,
-                # height=250,
-                image=self.img_product,
+                image=cls.img_product,
                 text="",
                 padding=40,
             )
-            self.img_product_lbl.place(relx=0.07, rely=0.1)
-        prod_frame = ttk.Frame(self.root, width=300, height=1000, padding=60)
+            cls.img_product_lbl.place(relx=0.07, rely=0.1)
+        prod_frame = ttk.Frame(cls.root, width=300, height=1000, padding=60)
         prod_frame.pack(fill=BOTH, side=LEFT)
         return prod_frame, img_frame
 
