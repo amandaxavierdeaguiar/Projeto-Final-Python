@@ -1,12 +1,14 @@
 import tkinter as tk
+
 import ttkbootstrap as ttk
+from customtkinter import *
+from sqlmodel import Session
 from ttkbootstrap.constants import *
 from ttkbootstrap.tableview import Tableview
+
+from controllers.SupplierController import SupplierController
 from models.UserAuthentication import UserAuthentication
 from models.db.db_conection import get_session
-from sqlmodel import Session
-from customtkinter import *
-from controllers.SupplierController import SupplierController
 
 
 class SupplierView(ttk.Frame):
@@ -33,7 +35,9 @@ class SupplierView(ttk.Frame):
         # container.pack(fill=X, expand=NO, pady=5)
 
         # Title and button
-        title = tk.Label(container, text="Fornecedores", font=("Verdana", 20))
+        title = tk.Label(
+            container, text="Fornecedores", font=("Verdana", 20)
+        )
         title.pack(side="left", padx=10)
         # title.pack(side="left", anchor="nw", fill=tk.NONE, padx=27, pady=29)
 

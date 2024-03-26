@@ -18,7 +18,7 @@ from views.Base.BaseWindow import BaseWindow
 PATH = Path(__file__).parent.parent / "assets"
 
 
-class RegistrationProduct:
+class RegistrationProduct(ttk.Frame):
     root: BaseWindow
     ctrl_brand: BrandController = BrandController()  # <-
     ctrl_category: CategoryController = CategoryController()  # <-
@@ -44,15 +44,15 @@ class RegistrationProduct:
     # Brand
     brand: ttk.IntVar
 
-    def __init__(self, user_, product_select=None):
-        super().__init__()
+    def __init__(self, master_, user_, product_select=None):
+        super().__init__(master_, padding=(10, 5))
         self.root = BaseWindow(
             title="Inserir Produto",
-            iconphoto=f"{PATH}/icons/logo-stock.png",
             themename="cosmo",
+            iconphoto=f"{PATH}/icons/logo-stock.png",
             background="#EBEBEB",
-            resizable=(True, True),
             size=[1000, 650],
+            resizable=(True, True),
             minsize=[756, 545],
         )
         self.user = user_
@@ -121,13 +121,13 @@ class RegistrationProduct:
         else:
             img_path_temp = Image.open(PATH / "icons/logo-stock-b.png")
             self.img_product = ImageTk.PhotoImage(img_path_temp.resize((250, 250)))
-            self.img_product_lbl = Label(
+            self.img_product_lbl = ttk.Label(
                 img_frame,
                 width=250,
-                height=250,
+                # height=250,
                 image=self.img_product,
                 text="",
-                pady=40,
+                padding=40,
             )
             self.img_product_lbl.place(relx=0.07, rely=0.1)
         prod_frame = ttk.Frame(self.root, width=300, height=1000, padding=60)
@@ -151,7 +151,7 @@ class RegistrationProduct:
         lbl = ttk.Label(master=container, text=label.title(), width=10, anchor="e")
         lbl.pack(side=LEFT, padx=5)
         if entry_type == "image":
-            ent = ttk.Button(
+            ent = Button(
                 master=container, text="Procurar imagem", command=self.on_select_image
             )
             ent.pack(side=LEFT, padx=5, fill=X, expand=YES)

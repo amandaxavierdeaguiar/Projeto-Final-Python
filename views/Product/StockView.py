@@ -119,8 +119,8 @@ class StockView(ttk.Frame):
                 row_values = row.values.copy()
                 for f, b in zip(tb_columns, row.values.copy()):
                     product[f.headertext] = b
-                cls.reg_product = RegistrationProduct(cls.user, product)
+                cls.reg_product = RegistrationProduct(cls.root, cls.user, product)
 
     @classmethod
     def new_product(cls):
-        RegistrationProduct(cls.user)
+        RegistrationProduct(cls.root, cls.user)

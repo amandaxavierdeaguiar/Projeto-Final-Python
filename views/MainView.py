@@ -30,7 +30,8 @@ class MainView(ttk.Frame):
     button5: Button
 
     def __init__(self, master, user_: UserAuthentication):
-        super().__init__(master, padding=(10, 5))
+        super().__init__(master, padding=(0, 0))
+        # super().__init__(master, padding=(10, 5))
         self.root = master
         self.user = user_
         self.frames_nav()
@@ -41,18 +42,20 @@ class MainView(ttk.Frame):
     def frames_nav(self):
         self.menu_frame = ttk.Frame(self.root, width=50, height=30, style=PRIMARY)
         self.menu_frame.pack(fill=Y, side="left", expand=False)
+
         self.stock = StockView(self.root, self.user)
         self.main_frame = self.stock.get_frame(self.user)
-        self.main_frame.pack(fill=BOTH, side="left", expand=True)
+        self.main_frame.pack(fill=X, side="left", expand=True)
+        # self.main_frame.pack(fill=BOTH, side="left", expand=True)
 
     @classmethod
     def create_button(cls, frame_, img_, text_, command_, row_, disabled_) -> Button:
         img_path_temp = Image.open(PATH / img_)
-        img_temp = ImageTk.PhotoImage(img_path_temp.resize((30, 35)))
+        img_temp = ImageTk.PhotoImage(img_path_temp.resize((10, 10)))  # (30, 35)
         if disabled_:
             btn_temp = ttk.Button(
                 master=frame_,
-                width=30,
+                width=20,  # 30
                 # height=75,
                 cursor="hand2",
                 image=img_temp,
@@ -67,7 +70,7 @@ class MainView(ttk.Frame):
         else:
             btn_temp = ttk.Button(
                 master=frame_,
-                width=25,
+                width=20,  # 30
                 # height=75,
                 image=img_temp,
                 compound=tk.LEFT,
@@ -81,12 +84,14 @@ class MainView(ttk.Frame):
             return btn_temp
 
     def menu(self):
-        img_logo = Image.open(PATH / "icons/logo-stock-b.png")
-        self.img_logo = ImageTk.PhotoImage(img_logo.resize((100, 100)))
+        img_logo = Image.open(
+            PATH / "icons/logo-stock-b.png"
+        )  # (PATH / "logo-stock-b.png")
+        self.img_logo = ImageTk.PhotoImage(img_logo.resize((150, 150)))  # 100, 100
         self.button1 = Button(
             self.menu_frame,
-            width=172,
-            height=230,
+            width=150,  # 172
+            height=250,
             image=self.img_logo,
             text="",
         )

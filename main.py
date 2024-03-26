@@ -9,8 +9,8 @@ PATH = Path(__file__).parent / "views/assets"
 def main():
     app = BaseWindow(
         title="Stock Management",
-        iconphoto=f"{PATH}/icons/logo-stock.png",
         themename="cosmo",
+        iconphoto=f"{PATH}/icons/logo-stock.png",
         background="#EBEBEB",
         resizable=(True, True),
         size=[856, 645],
