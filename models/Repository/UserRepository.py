@@ -22,7 +22,7 @@ class UserRepository(BaseRepository[User]):
 
     @classmethod
     def get_by_id(cls, entity: User, session_) -> User:
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(User).where(User.id == entity.id)
         result = session_.exec(statement)
         return result
 
@@ -34,7 +34,7 @@ class UserRepository(BaseRepository[User]):
 
     @classmethod
     def update(cls, entity: User, session_) -> None:
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(User).where(User.id == entity.id)
         exec_result = session_.exec(statement)
         result = exec_result.one()
 
@@ -45,14 +45,14 @@ class UserRepository(BaseRepository[User]):
 
     @classmethod
     def delete(cls, entity: User, session_) -> None:
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(User).where(User.id == entity.id)
         exec_result = session_.exec(statement)
         result = exec_result.one()
 
         session_.delete(result)
         session_.commit()
 
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(User).where(User.id == entity.id)
         exec_confirm = session_.exec(statement)
         result_confirm = exec_confirm.first()
 

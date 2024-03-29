@@ -24,7 +24,7 @@ class BrandRepository(BaseRepository[Brand]):
     @classmethod
     def get_by_name(cls, name_: str, session_) -> Brand:
         statement = select(Brand).where(Brand.name == name_)
-        result = session_.exec(statement)
+        result = session_.exec(statement).one()
         return result
 
     @classmethod

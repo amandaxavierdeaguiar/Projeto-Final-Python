@@ -53,12 +53,12 @@ class InsertUser:
         prod_frame_description.config(style="Custom.TFrame", )
 
         img_user = Image.open(PATH / "icons/insert_user_bg2.png")
-        cls.img_user = ImageTk.PhotoImage(img_user.resize((350, 350)))
-        cls.button1 = Label(
-                prod_frame_description, width=250, height=250, image=cls.img_user, text="", borderwidth=0,
+        img_user = ImageTk.PhotoImage(img_user.resize((350, 350)))
+        button1 = Label(
+                prod_frame_description, width=250, height=250, image=img_user, text="", borderwidth=0,
                 highlightthickness=0, bd=0
-        ).place(relx=.08, rely=.3)
-
+        )
+        button1.place(relx=.08, rely=.3)
         return prod_frame_description
 
     @classmethod

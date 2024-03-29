@@ -36,7 +36,7 @@ class UserView(ttk.Frame):
     type_access: IntVar
     type_access_ent: ttk.Combobox
 
-    def __init__(self, master_, user_login, user_select=None):
+    def __init__(self, master_, user_login, user_selected=None):
         super().__init__(master_, padding=(10, 5))
         self.root = master_
 

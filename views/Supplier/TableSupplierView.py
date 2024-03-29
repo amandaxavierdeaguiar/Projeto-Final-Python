@@ -24,48 +24,16 @@ class TableSupplierView(ttk.Frame):
     @classmethod
     def get_frame(cls, user_):
         # cls.main_frame = ttk.Frame(cls.root, width=400, height=100)
-        cls.main_frame = ttk.Frame(cls.root, width=400, height=10)
+        cls.main_frame = ttk.Frame(cls.root, width=400, height=10, padding=20)
         cls.main_frame.pack(fill=X)
 
-        container = ttk.Frame(master=cls.main_frame, height=10)  # height = 20
-        container.pack(fill=X, expand=YES, pady=5)
-        # container.pack(fill=X, expand=NO, pady=5)
-
-        # Title and button
-        title = tk.Label(container, text="Fornecedores", font=("Verdana", 20))
-        title.pack(side="left", padx=10)
-        # title.pack(side="left", anchor="nw", fill=tk.NONE, padx=27, pady=29)
-
-        if "Create" in user_.permissions["Supplier"]:
-            button_add = tk.Button(
-                container,
-                font=("Verdana", 10),
-                text="+ Fornecedor",
-                bg="blue",
-                fg="white",
-                cursor="hand2",
-            )
-            # button_add.pack(anchor="ne", fill=tk.NONE, padx=27, pady=29)
-            button_add.pack(side=RIGHT, padx=5)
-        else:
-            button_add = tk.Button(
-                container,
-                font=("Verdana", 10),
-                text="+ Fornecedor",
-                bg="blue",
-                fg="white",
-                cursor="hand2",
-                state="disabled",
-            )
-            # button_add.pack(anchor="ne", fill=tk.NONE, padx=27, pady=29)
-            button_add.pack(side=RIGHT, padx=5)
         cls.table()
         return cls.main_frame
 
     @classmethod
     def table(cls):
         container = ttk.Frame(master=cls.main_frame)
-        container.pack(fill=tk.BOTH, expand=YES, pady=5)
+        container.pack(fill=tk.BOTH, expand=YES)
         coldata = [
             {"text": "Fornecedor", "stretch": True},
             {"text": "Morada", "stretch": True},
@@ -89,13 +57,18 @@ class TableSupplierView(ttk.Frame):
             paginated=True,
         )
         # dt.pack(fill=tk.BOTH, expand=YES, padx=35, pady=35)
-        dt.pack(fill=tk.BOTH, expand=YES, padx=10, pady=0)
+        dt.pack(fill=tk.BOTH, expand=YES)
 
         # TEST
 
     @classmethod
-    def select_product(cls):
+    def select_supplier(cls):
         selected_rows = cls.dt.get_rows(selected=True)
-        if selected_rows == 1:
+        tb_columns = cls.dt.get_columns()
+        supplier = {}
+        if len(selected_rows) == 1:
             for row in selected_rows:
-                print(row.values)
+                row_values = row.values.copy()
+                for f, b in zip(tb_columns, row.values.copy()):
+                    supplier[f.headertext] = b
+        return supplier

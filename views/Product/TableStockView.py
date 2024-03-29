@@ -18,65 +18,29 @@ class TableStockView(ttk.Frame):
     user: UserAuthentication
     session: Session = get_session()
     main_frame: ttk.Frame
+    main_note: ttk.Notebook
     button_add: tk.Button
     dt: Tableview
 
-    def __init__(self, master_, user_):
+    def __init__(self, master_, user_, note=None):
         super().__init__(master_, padding=(10, 5))
         self.root = master_
+        self.main_note = note
 
     @classmethod
-    def get_frame(cls, user_):
+    def get_frame(cls, user_, note=None):
         cls.user = user_
-        cls.main_frame = ttk.Frame(cls.root, width=400, height=100)
-        cls.main_frame.pack(fill=X)
+        cls.main_frame = ttk.Frame(cls.root)
+        cls.main_frame.pack(fill=BOTH, side="left", expand=True)
+        cls.main_note = note
 
-        container = ttk.Frame(master=cls.main_frame, height=10)
-        container.pack(fill=X, expand=YES, pady=5)
-
-        # Title and button
-        title = tk.Label(container, text="Stock", font=("Verdana", 20))
-        title.pack(side="left", padx=10)
-
-        if "Create" in user_.permissions["Stock"]:
-            cls.button_add = tk.Button(
-                container,
-                font=("Verdana", 10),
-                text="+ Produtos",
-                bg="blue",
-                fg="white",
-                command=cls.new_product,
-                cursor="hand2",
-            )
-            cls.button_add.pack(side=RIGHT, padx=15)
-        else:
-            cls.button_add = tk.Button(
-                container,
-                font=("Verdana", 10),
-                text="+ Produtos",
-                bg="blue",
-                fg="white",
-                cursor="hand2",
-                state="disabled",
-            )
-            cls.button_add.pack(side=RIGHT, padx=5)
-        button_feature = tk.Button(
-            container,
-            font=("Verdana", 10),
-            text="Detalhes",
-            bg="blue",
-            fg="white",
-            cursor="hand2",
-            command=cls.select_product,
-        )
-        button_feature.pack(side=RIGHT, padx=5)
-        cls.table()
-        return cls.main_frame
+        cls.table(cls.main_note)
+        return cls.main_frame, cls.main_note
 
     @classmethod
-    def table(cls):
-        container = ttk.Frame(master=cls.main_frame)
-        container.pack(fill=tk.BOTH, expand=YES, pady=5)
+    def table(cls, note):
+        container = ttk.Frame(master=note)
+        container.pack(fill=tk.BOTH, expand=YES)
 
         table_data = cls.ctrl_stock.get_all(cls.session)
         coldata = [
@@ -103,11 +67,12 @@ class TableStockView(ttk.Frame):
             searchable=True,
             bootstyle=PRIMARY,
             stripecolor=("#f1f1f1", None),
-            height=32,
+            height=42,
             paginated=True,
-            pagesize=32,
+            pagesize=42,
         )
-        cls.dt.pack(fill=tk.BOTH, expand=YES, padx=35, pady=35)
+        cls.dt.pack(fill=tk.BOTH, expand=YES)
+        cls.main_note.add(container, text='Table')
 
     @classmethod
     def select_product(cls):
@@ -119,8 +84,4 @@ class TableStockView(ttk.Frame):
                 row_values = row.values.copy()
                 for f, b in zip(tb_columns, row.values.copy()):
                     product[f.headertext] = b
-                cls.reg_product = RegistrationProduct(cls.root, cls.user, product)
-
-    @classmethod
-    def new_product(cls):
-        RegistrationProduct(cls.root, cls.user)
+        return product

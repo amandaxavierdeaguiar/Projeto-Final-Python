@@ -11,13 +11,12 @@ from pydantic import ValidationError
 from ttkbootstrap.constants import *
 
 from models.UserAuthentication import UserAuthentication
-from views.MainView import MainView
 
 PATH = Path(__file__).parent.parent / "assets"
 
 
 class LoginView(ttk.Frame):
-    user: UserAuthentication
+    user: UserAuthentication = None
     login_entry_var: ttk.StringVar
     password_entry_var: ttk.StringVar
     login_entry: Entry
@@ -124,8 +123,7 @@ class LoginView(ttk.Frame):
             self.user.check(email, password)
             if self.user.is_login:
                 self.destroy()
-                self.wait_window(MainView(self.root, self.user))
-                # MainView(self.root, self.user)
+                return self.user
         except ValidationError as e:
             print(e)
 

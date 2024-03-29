@@ -1,3 +1,5 @@
+from http.client import HTTPException
+
 from sqlmodel import select
 
 from models.Product import Product
@@ -37,31 +39,38 @@ class ProductRepository(BaseRepository[Product]):
 
     @classmethod
     def get_by_id(cls, entity: Product, session_) -> Product:
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(Product).where(Product.id == entity.id)
         result = session_.exec(statement)
         return result
 
     @classmethod
     def update(cls, entity: Product, session_) -> None:
-        statement = select(entity).where(entity.id == entity.id)
+        test = entity.bar_cod
+        statement = select(Product).where(Product.bar_cod is entity.bar_cod)
         exec_result = session_.exec(statement)
-        result = exec_result.one()
-
-        result = entity
+        list_result = exec_result.all()
+        result = [x for x in list_result if x.bar_cod == entity.bar_cod][0]
+        result.name = entity.name
+        result.bar_cod = entity.bar_cod
+        result.description = entity.description
+        result.photo = entity.photo
+        result.brand_id = entity.brand_id
+        result.category_id = entity.category_id
+        result.price = entity.price
         session_.add(result)
         session_.commit()
         session_.refresh(result)
 
     @classmethod
     def delete(cls, entity: Product, session_) -> None:
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(Product).where(Product.id == entity.id)
         exec_result = session_.exec(statement)
         result = exec_result.one()
 
         session_.delete(result)
         session_.commit()
 
-        statement = select(entity).where(entity.id == entity.id)
+        statement = select(Product).where(Product.id == entity.id)
         exec_confirm = session_.exec(statement)
         result_confirm = exec_confirm.first()
 

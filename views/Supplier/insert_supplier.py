@@ -1,25 +1,21 @@
 from pathlib import Path
 from tkinter import *
 import tkinter as tk
-from tkinter import messagebox
 import ttkbootstrap as ttk
 from ttkbootstrap import Style
 from PIL import Image, ImageTk
-from controllers.MovementController import MovementController
-from models.Movement import Movement
 
-PATH = Path(__file__).parent.parent.parent / "assets"
+PATH = Path(__file__).parent.parent / "assets"
 
 
-class SupplierView(ttk.Frame):
-    root = None
-    button1: Label
-    img_supplier: ImageTk.PhotoImage
+class InsertSupplier:
+    root = ttk.Window(themename="cosmo")
 
-    def __init__(self, master_, user_, supplier_seleted=None):
-        super().__init__(master_, padding=(10, 5))
-        self.root = master_
-        self.get_frame(user_)
+    def __init__(self):
+        super().__init__()
+
+        self.window_supplier()
+        self.frame_photo_supplier()
         self.entrys_supplier()
 
         # form entries
@@ -35,25 +31,43 @@ class SupplierView(ttk.Frame):
 
         self.create_buttonbox()
         # self.root.configure(background='blue')
+        self.root.mainloop()
 
     @classmethod
-    def get_frame(cls, user_):
-        # Frame para dividir a tela. 
+    def window_supplier(cls):
+        cls.root.title("Inserir Fornecedores")
+        cls.root.geometry("1000x650")
+        cls.root.minsize(width=756, height=545)
+
+    @classmethod
+    def frame_photo_supplier(cls):
+        # Frame para dividir a tela.
         prod_frame_description = ttk.Frame(cls.root, width=300, height=1000)
         prod_frame_description.pack(fill=tk.Y, side=LEFT)
 
         style = ttk.Style()
-        style.configure("Custom.TFrame", background=style.colors.primary, )
+        style.configure(
+            "Custom.TFrame",
+            background=style.colors.primary,
+        )
 
-        prod_frame_description.config(style="Custom.TFrame", )
+        prod_frame_description.config(
+            style="Custom.TFrame",
+        )
 
         img_supplier = Image.open(PATH / "icons/supplier.png")
         cls.img_supplier = ImageTk.PhotoImage(img_supplier.resize((252, 252)))
         cls.button1 = Label(
-                prod_frame_description, width=250, height=250, image=cls.img_supplier, text="", borderwidth=0,
-                highlightthickness=0, bd=0
-        )
-        cls.button1.place(relx=.08, rely=.3)
+            prod_frame_description,
+            width=250,
+            height=250,
+            image=cls.img_supplier,
+            text="",
+            borderwidth=0,
+            highlightthickness=0,
+            bd=0,
+        ).place(relx=0.08, rely=0.3)
+
         return prod_frame_description
 
     @classmethod
@@ -63,11 +77,16 @@ class SupplierView(ttk.Frame):
         # Colocando cor na frame
 
         # form header
-        hdr_txt = "Digite os dados do fornecedor:"
+        hdr_txt = "Digite os dados do produto:"
         hdr = ttk.Label(register_prod, text=hdr_txt, width=50, font=("Verdana", 18))
         style = ttk.Style()
-        style.configure("Custom.TLabel", foreground=style.colors.primary, )
-        hdr.config(style="Custom.TLabel", )
+        style.configure(
+            "Custom.TLabel",
+            foreground=style.colors.primary,
+        )
+        hdr.config(
+            style="Custom.TLabel",
+        )
 
         hdr.pack(pady=20)
 
@@ -80,7 +99,13 @@ class SupplierView(ttk.Frame):
         lbl = ttk.Label(master=container, text=label.title(), width=10)
         lbl.pack(side=LEFT, padx=5)
 
-        ent = Entry(master=container, textvariable=variable, bg="white", relief="solid", borderwidth=0.5)
+        ent = Entry(
+            master=container,
+            textvariable=variable,
+            bg="white",
+            relief="solid",
+            borderwidth=0.5,
+        )
         # ent.pack(padx=5, pady=5)
         ent.pack(side=LEFT, padx=5, fill=X, expand=YES)
 
@@ -93,49 +118,42 @@ class SupplierView(ttk.Frame):
         container.pack(fill=X, expand=YES, pady=(15, 10))
 
         sub_btn = ttk.Button(
-                master=container,
-                text="Submit",
-                command=cls.on_submit,
-                bootstyle='SUCCESS',
-                width=6,
+            master=container,
+            text="Submit",
+            command=cls.on_submit,
+            bootstyle="SUCCESS",
+            width=6,
         )
-        sub_btn.pack(side=RIGHT, padx=20)
+        sub_btn.pack(side=RIGHT, padx=5)
         sub_btn.focus_set()
 
         cnl_btn = ttk.Button(
-                master=container,
-                text="Cancel",
-                command=cls.on_cancel,
-                bootstyle='DANGER',
-                width=6,
+            master=container,
+            text="Cancel",
+            command=cls.on_cancel,
+            bootstyle="DANGER",
+            width=6,
         )
         cnl_btn.pack(side=RIGHT, padx=5)
-
-    """ TIPO DE ACESSO - FAZER COMBOBOX Admin = "Admin" | SubAdmin = "Sub_Admin" | User = "User"""
-
-    @classmethod
-    def combobox_type_user(cls):
-        frame_combobox = ttk.Frame(cls.root)
-        frame_combobox.pack(fill=X, expand=YES, pady=5)
-
-        lbl_combobox = ttk.Label(frame_combobox, text="Tipo de Acesso", width=13)
-        lbl_combobox.pack(side=LEFT, padx=5)
-
-        type_acess = ttk.Combobox(frame_combobox, state="readonly", values=["Admin", "Sub_Admin", "User"])
-        type_acess.current(0)
-        type_acess.pack(side=LEFT, padx=20, fill=X, expand=YES)
-
-        return type_acess
 
     @classmethod
     def on_submit(cls):
         # IMPRIME CONTEUDO E RETORNA OS VALORES
-        move = MovementController()
-        m = Movement()
-        move.add()
-        return True
+        print("Nome:", cls.name.get())
+        print("Endereço:", cls.address.get())
+        print("Telefone:", cls.phone.get())
+        print("E-mail:", cls.email.get())
+
+        return cls.address.get(), cls.name.get(), cls.phone.get(), cls.email.get()
 
     @classmethod
-    def on_cancel(cls):
+    def on_cancel(self):
         # Cancela e sai da app
-        cls.quit()
+        self.quit()
+
+
+if __name__ == "__main__":
+    inicio = InsertSupplier()
+    # Test code
+
+    inicio.root.mainloop()

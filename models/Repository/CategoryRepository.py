@@ -26,7 +26,7 @@ class CategoryRepository(BaseRepository[Category]):
     @classmethod
     def get_by_name(cls, name_: str, session_) -> Category:
         statement = select(Category).where(Category.name == name_)
-        result = session_.exec(statement)
+        result = session_.exec(statement).one()
         return result
 
     @classmethod

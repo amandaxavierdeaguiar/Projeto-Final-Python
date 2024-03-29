@@ -1,3 +1,4 @@
+import hashlib
 from typing import Dict
 
 from sqlmodel import Session
